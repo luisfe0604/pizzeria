@@ -5,12 +5,23 @@ const totalValue = require('../util/getValue')
 
 router.get('/',
     async (req, res) => {
-        try {
-            const orders = await Order.getAllOpenOrders();
-            res.status(200).json(orders);
-        } catch (err) {
-            res.status(500).json({ error: 'Erro ao buscar pedidos' });
+        if(JSON.stringify(req.body) === '{}'){
+            try {
+                const orders = await Order.getAllOpenOrders();
+                res.status(200).json(orders);
+            } catch (err) {
+                res.status(500).json({ error: 'Erro ao buscar pedidos' });
+            }
+        }else{
+            try {
+                const { startTimestamp, endTimestamp } = req.body;
+                const orders = await Order.getOrderByTimestamp(startTimestamp, endTimestamp);
+                res.status(200).json(orders);
+            } catch (err) {
+                res.status(500).json({ error: 'Erro ao buscar pedidos' });
+            }
         }
+        
     }
 )
 

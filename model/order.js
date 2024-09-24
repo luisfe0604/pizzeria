@@ -29,6 +29,21 @@ async function getOrderById(id) {
     }
 }
 
+async function getOrderByTimestamp(startTimestamp, endTimestamp) {
+    try {
+        const result = await pool.query(
+            `SELECT * 
+            FROM orders 
+            WHERE start_timestamp BETWEEN $1 AND $2`,
+            [startTimestamp, endTimestamp]
+        );
+        return result.rows;
+    } catch (err) {
+        console.error(`Erro ao buscar pedidos dentro do intervalo:`, err);
+        throw err;
+    }
+}
+
 async function addOrder(items, locale, client, totalValue) {
     try {
         const result = await pool.query(
@@ -66,6 +81,7 @@ async function finishOrder(id, value) {
 module.exports = {
     getAllOpenOrders,
     getOrderById,
+    getOrderByTimestamp, 
     addOrder,
     finishOrder,
 };
