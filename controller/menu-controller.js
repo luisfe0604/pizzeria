@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Menu = require('../model/menu')
+const authenticateToken = require('../helper/auth');
+const { createItemSchema, idSchema, alterItemSchema } = require('../validation/menuValidation');
 
 router.get('/',
     async (req, res) => {
@@ -15,6 +17,10 @@ router.get('/',
 
 router.get('/:id',
     async (req, res) => {
+        const { error } = idSchema.validate({ id: req.params.id });
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
         const id = parseInt(req.params.id);
         try {
             const menuItem = await Menu.getMenuItemById(id);
@@ -29,8 +35,12 @@ router.get('/:id',
     }
 )
 
-router.post('/',
+router.post('/', authenticateToken,
     async (req, res) => {
+        const { error } = createItemSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
         const { name, ingredients, value } = req.body;
         try {
             const newItem = await Menu.addMenuItem(name, ingredients, value);
@@ -41,14 +51,23 @@ router.post('/',
     }
 )
 
-router.put('/:id',
+router.put('/:id', authenticateToken,
     async (req, res) => {
+        const { error } = idSchema.validate({ id: req.params.id });
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }
+        const { errorBody } = alterItemSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: errorBody.details[0].message });
+        }
+
         const id = parseInt(req.params.id);
         const { name, ingredients, value, active } = req.body;
         try {
             const updatedItem = await Menu.updateMenuItem(id, name, ingredients, value, active);
             if (updatedItem) {
-                res.status(200).json(updatedItem); 
+                res.status(200).json(updatedItem);
             } else {
                 res.status(404).json({ error: 'Item não encontrado' });
             }
