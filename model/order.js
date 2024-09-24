@@ -5,7 +5,7 @@ async function getAllOpenOrders() {
         const result = await pool.query(
             `SELECT * 
             FROM orders
-            WHERE status = 1`
+            WHERE status = true`
         );
         return result.rows;
     } catch (err) {
@@ -48,10 +48,10 @@ async function addOrder(items, locale, client, totalValue) {
 async function finishOrder(id, value) {
     try {
         const result = await pool.query(
-            `UPDATE menu SET 
+            `UPDATE orders SET 
                 value = $2, 
-                endTimestamp = NOW(),
-                status = 1 
+                end_timestamp = NOW(),
+                status = false
             WHERE id = $1 
             RETURNING *`,
             [id, value]
