@@ -7,25 +7,28 @@ const { timestampSchema, idSchema, createOrderSchema, finishOrderSchema } = requ
 
 module.exports = (broadcastData) => {
     router.get('/', async (req, res) => {
-        if (JSON.stringify(req.body) === '{}') {
-            try {
-                const orders = await Order.getAllOpenOrders();
-                res.status(200).json(orders);
-            } catch (err) {
-                res.status(500).json({ error: 'Erro ao buscar pedidos' });
-            }
-        } else {
-            const { error } = timestampSchema.validate(req.body);
-            if (error) {
-                return res.status(400).json({ error: error.details[0].message });
-            }
-            try {
-                const { startTimestamp, endTimestamp } = req.body;
-                const orders = await Order.getOrderByTimestamp(startTimestamp, endTimestamp);
-                res.status(200).json(orders);
-            } catch (err) {
-                res.status(500).json({ error: 'Erro ao buscar pedidos' });
-            }
+
+        try {
+            const orders = await Order.getAllOpenOrders();
+            res.status(200).json(orders);
+        } catch (err) {
+            res.status(500).json({ error: 'Erro ao buscar pedidos' });
+        }
+
+    });
+
+    router.post('/all', async (req, res) => {
+        const { error } = timestampSchema.validate(req.body);
+        if (error) {
+            console.log(error)
+            return res.status(400).json({ error: error.details[0].message });
+        }
+        try {
+            const { startTimestamp, endTimestamp } = req.body;
+            const orders = await Order.getOrderByTimestamp(startTimestamp, endTimestamp);
+            res.status(200).json(orders);
+        } catch (err) {
+            res.status(500).json({ error: 'Erro ao buscar pedidos' });
         }
     });
 

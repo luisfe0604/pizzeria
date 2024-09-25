@@ -1,5 +1,8 @@
+// Orders.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../App.css'; 
+import OrderCard from './orderCard'; 
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -23,10 +26,7 @@ const Orders = () => {
 
     socket.onmessage = (event) => {
       const newOrder = JSON.parse(event.data);
-      if (newOrder.action === 'new_order') {
-        fetchOrders();
-      }
-      if (newOrder.action === 'finish_order') {
+      if (newOrder.action === 'new_order' || newOrder.action === 'finish_order') {
         fetchOrders(); 
       }
     };
@@ -37,6 +37,10 @@ const Orders = () => {
       socket.close();
     };
   }, []);
+
+  const handleFinishOrder = (orderId) => {
+    setOrders((prevOrders) => prevOrders.filter(order => order.id !== orderId));
+  };
 
   if (loading) {
     return <p>Carregando pedidos...</p>;
@@ -52,15 +56,11 @@ const Orders = () => {
       {orders.length === 0 ? (
         <p>Nenhum pedido em andamento.</p>
       ) : (
-        <ul>
+        <div className="orders-container">
           {orders.map(order => (
-            <li key={order.id}>
-              <strong>Cliente:</strong> {order.client} <br />
-              <strong>Detalhes:</strong> {order.items} <br />
-              <strong>Data:</strong> {new Date(order.start_timestamp).toLocaleString()} <br />
-            </li>
+            <OrderCard key={order.id} order={order} onFinish={handleFinishOrder} />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

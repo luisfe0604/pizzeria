@@ -1,8 +1,18 @@
 const pool = require(`../helper/dbConfig`);
 
-async function getAllMenuItems() {
+async function getAllMenuItemsActives() {
   try {
     const result = await pool.query(`SELECT * FROM menu WHERE active = true`);
+    return result.rows; 
+  } catch (err) {
+    console.error(`Erro ao buscar itens do menu:`, err);
+    throw err;
+  }
+}
+
+async function getAllMenuItems() {
+  try {
+    const result = await pool.query(`SELECT * FROM menu`);
     return result.rows; 
   } catch (err) {
     console.error(`Erro ao buscar itens do menu:`, err);
@@ -61,6 +71,7 @@ async function updateMenuItem(id, name, ingredients, value, active) {
 }
 
 module.exports = {
+  getAllMenuItemsActives, 
   getAllMenuItems,
   getMenuItemById,
   addMenuItem,

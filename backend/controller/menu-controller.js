@@ -7,6 +7,17 @@ const { createItemSchema, idSchema, alterItemSchema } = require('../validation/m
 router.get('/',
     async (req, res) => {
         try {
+            const menuItems = await Menu.getAllMenuItemsActives();
+            res.status(200).json(menuItems);
+        } catch (err) {
+            res.status(500).json({ error: 'Erro ao buscar itens do menu' });
+        }
+    }
+)
+
+router.get('/all',
+    async (req, res) => {
+        try {
             const menuItems = await Menu.getAllMenuItems();
             res.status(200).json(menuItems);
         } catch (err) {
@@ -25,7 +36,7 @@ router.get('/:id',
         try {
             const menuItem = await Menu.getMenuItemById(id);
             if (menuItem) {
-                res.status(200).json(menuItem); // Retorna o item encontrado
+                res.status(200).json(menuItem); 
             } else {
                 res.status(404).json({ error: 'Item não encontrado' });
             }
