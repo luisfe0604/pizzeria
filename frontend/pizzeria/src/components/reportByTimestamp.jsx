@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../App.css'; 
-import OrderCard from './orderCard'; 
+import '../App.css';
+import OrderCard from './orderCard';
+import { TextField, Button } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 const OrdersWithTimestamps = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [startTimestamp, setStartTimestamp] = useState('');
-  const [endTimestamp, setEndTimestamp] = useState('');
+  const [startTimestamp, setStartTimestamp] = useState(null);
+  const [endTimestamp, setEndTimestamp] = useState(null);
   const [totalValue, setTotalValue] = useState(0);
 
-  // Função para buscar pedidos da API
   const fetchOrders = async () => {
     try {
-      setLoading(true); // Inicia o loading antes da chamada
-      
+      setLoading(true); 
+
       const response = await axios.post('http://localhost:3000/order/all', {
-        startTimestamp: startTimestamp || new Date(new Date().setMinutes(new Date().getMinutes() - 1)), 
+        startTimestamp: startTimestamp || new Date(new Date().setMinutes(new Date().getMinutes() - 1)),
         endTimestamp: endTimestamp || new Date(),
       });
 
-      const pedidosAbertos = response.data; 
+      const pedidosAbertos = response.data;
       setOrders(pedidosAbertos);
-      calculateTotalValue(pedidosAbertos); // Chama a função para calcular o total
+      calculateTotalValue(pedidosAbertos);
     } catch (error) {
       console.log(error);
       setError('Erro ao carregar os pedidos: ' + (error.response?.data?.message || ''));
@@ -32,16 +35,14 @@ const OrdersWithTimestamps = () => {
     }
   };
 
-  // Função para calcular o valor total dos pedidos
   const calculateTotalValue = (orders) => {
     const total = orders.reduce((sum, order) => {
-      const value = Number(order.value) || 0; // Converte para número
+      const value = Number(order.value) || 0; 
       return sum + value;
     }, 0);
     setTotalValue(total);
   };
 
-  // Efeito para gerenciar WebSocket e buscar pedidos inicialmente
   useEffect(() => {
     const today = new Date();
     const startOfDay = new Date(today.setHours(0, 0, 0, 0)).toISOString();
@@ -55,27 +56,24 @@ const OrdersWithTimestamps = () => {
     socket.onmessage = (event) => {
       const newOrder = JSON.parse(event.data);
       if (newOrder.action === 'new_order' || newOrder.action === 'finish_order') {
-        fetchOrders(); 
+        fetchOrders();
       }
     };
 
-    // Busca pedidos inicialmente
-    fetchOrders(); 
+    fetchOrders();
 
     return () => {
       socket.close();
     };
-  }, []); // Sem dependências para que não busque repetidamente
+  }, []); 
 
-  // Função para finalizar um pedido
   const handleFinishOrder = (orderId) => {
     setOrders((prevOrders) => prevOrders.filter(order => order.id !== orderId));
   };
 
-  // Função para realizar a busca com os timestamps
   const handleSearch = () => {
     if (startTimestamp && endTimestamp) {
-      fetchOrders(); // Chama a função de busca com os novos timestamps
+      fetchOrders(); 
     } else {
       setError('Por favor, preencha ambos os campos de data.');
     }
@@ -94,25 +92,26 @@ const OrdersWithTimestamps = () => {
       <h1>Pedidos em Andamento</h1>
 
       <div>
-        <label>
-          Data de Início:
-          <input
-            type="datetime-local"
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DateTimePicker
+            className='dateTime'
+            label="Data de Início"
             value={startTimestamp}
-            onChange={(e) => setStartTimestamp(e.target.value)}
+            onChange={(newValue) => setStartTimestamp(newValue)}
+            renderInput={(params) => <TextField {...params} />}
           />
-        </label>
-
-        <label>
-          Data de Fim:
-          <input
-            type="datetime-local"
+          <DateTimePicker
+            className='dateTime'
+            label="Data de Fim"
             value={endTimestamp}
-            onChange={(e) => setEndTimestamp(e.target.value)}
+            onChange={(newValue) => setEndTimestamp(newValue)}
+            renderInput={(params) => <TextField {...params} />}
           />
-        </label>
+        </LocalizationProvider>
 
-        <button onClick={handleSearch}>Buscar Pedidos</button>
+        <Button className='reportButton' variant="contained" onClick={handleSearch} style={{ marginLeft: '10px' }}>
+          Buscar Pedidos
+        </Button>
       </div>
 
       <h2>Valor Total: R$ {totalValue.toFixed(2)}</h2>

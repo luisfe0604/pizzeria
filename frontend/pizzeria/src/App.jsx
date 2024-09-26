@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/sideBar';
-import Login from './components/login'; // Importando o componente de Login
-import Orders from './components/mainReport'; // Supondo que você tenha um componente de pedidos
-import Menu from './components/menu'; // Supondo que você tenha um componente de pedidos
-import MenuTable from './components/menuTable'; // Supondo que você tenha um componente de pedidos
-import ReportTimestamp from './components/reportByTimestamp'; // Supondo que você tenha um componente de pedidos
+import Login from './components/login'; 
+import Orders from './components/mainReport'; 
+import Menu from './components/menu'; 
+import MenuTable from './components/menuTable'; 
+import ReportTimestamp from './components/reportByTimestamp'; 
 
 const App = () => {
   return (

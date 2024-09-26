@@ -1,43 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../App.css'; // Importar o CSS específico para o card, se necessário
+import '../App.css'; 
 
 const OrderCard = ({ order, onFinish }) => {
-  const [menuItems, setMenuItems] = useState([]); // Armazena os itens do cardápio
-  const [value, setValue] = useState(order.value || ''); // Inicializa com o valor atual do pedido
+  const [menuItems, setMenuItems] = useState([]); 
+  const [value, setValue] = useState(order.value || ''); 
 
-  // Função para buscar todos os itens do cardápio
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/menu'); 
-      
-      setMenuItems(response.data); // Armazena os itens no estado
+      const response = await axios.get('http://localhost:3000/menu');
+      setMenuItems(response.data);
     } catch (error) {
       console.error('Erro ao buscar itens do cardápio:', error);
     }
   };
 
-  // Função para buscar os nomes dos itens baseados nos IDs
   const getOrderedItemsNames = () => {
     const orderedItems = order.items.map(itemId => {
       const menuItem = menuItems.find(item => item.id === itemId);
       return menuItem ? menuItem.name : 'Item não encontrado';
     });
-    return orderedItems.join(', '); // Retorna uma string com os nomes separados por vírgula
+    return orderedItems.join(', '); 
   };
 
   useEffect(() => {
-    fetchMenuItems(); // Busca os itens do cardápio ao carregar o componente
+    fetchMenuItems(); 
   }, []);
 
   const handleFinish = async () => {
     try {
-      await axios.put(`http://localhost:3000/order/${order.id}`, { value },{
+      await axios.put(`http://localhost:3000/order/${order.id}`, { value, status: false }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
-      }
-    }); 
-      onFinish(order.id); // Chama a função onFinish para atualizar a lista de pedidos
+        }
+      });
+      onFinish(order.id); 
     } catch (error) {
       console.error('Erro ao finalizar pedido:', error);
     }
@@ -47,15 +44,21 @@ const OrderCard = ({ order, onFinish }) => {
     <div className="order-card">
       <strong>Cliente:</strong> {order.client} <br />
       <strong>Itens Pedidos:</strong> {getOrderedItemsNames()} <br />
+      <strong>Obs:</strong> {order.observations} <br />
       <strong>Data:</strong> {new Date(order.start_timestamp).toLocaleString()} <br />
       <strong>Valor:</strong>
       <input
         type="number"
         value={value}
-        onChange={(e) => setValue(e.target.value)} // Atualiza o valor do pedido
+        onChange={(e) => setValue(e.target.value)} 
         placeholder="Valor do pedido"
+        disabled={!order.status}
       />
-      <button onClick={handleFinish}>Finalizar Pedido</button>
+      {order.status ? (
+        <button onClick={handleFinish}>Finalizar Pedido</button>
+      ) : (
+        <span className="finished-message">Pedido finalizado</span>
+      )}
     </div>
   );
 };

@@ -55,10 +55,10 @@ module.exports = (broadcastData) => {
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
-        const { items, locale, client } = req.body;
+        const { items, locale, client, observations } = req.body;
         const total = await totalValue.getTotalValue(items);
         try {
-            const newOrder = await Order.addOrder(items, locale, client, total);
+            const newOrder = await Order.addOrder(items, locale, client, total, observations);
             broadcastData({ action: 'new_order', data: newOrder });
 
             res.status(201).json(newOrder);

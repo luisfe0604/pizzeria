@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../App.css';
 
 const OrderForm = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [locale, setLocale] = useState('');
   const [client, setClient] = useState('');
-  
-  // Carregar itens do menu
+  const [observations, setObservations] = useState('');
+  const [message, setMessage] = useState({ text: '', type: '' });
+
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/menu'); // Rota para buscar os itens do menu
+        const response = await axios.get('http://localhost:3000/menu');
         setMenuItems(response.data);
       } catch (error) {
         console.error('Erro ao buscar itens do menu:', error);
@@ -20,7 +22,6 @@ const OrderForm = () => {
     fetchMenuItems();
   }, []);
 
-  // Lidar com a seleção de itens
   const toggleSelectItem = (item) => {
     if (selectedItems.includes(item)) {
       setSelectedItems(selectedItems.filter((i) => i !== item));
@@ -29,26 +30,34 @@ const OrderForm = () => {
     }
   };
 
-  // Lidar com o envio do pedido
   const handleSubmit = async () => {
     try {
       const orderData = {
-        items: selectedItems.map((item) => item.id), // IDs dos itens selecionados
+        items: selectedItems.map((item) => item.id),
         locale,
         client,
+        observations,
       };
-      await axios.post('http://localhost:3000/order', orderData); // Rota para criar um pedido
-      alert('Pedido realizado com sucesso!');
+      await axios.post('http://localhost:3000/order', orderData);
+      setMessage({ text: 'Pedido realizado com sucesso!', type: 'success' });
+      clearMessage();
     } catch (error) {
       console.error('Erro ao realizar o pedido:', error);
+      setMessage({ text: 'Erro ao realizar o pedido.', type: 'error' });
+      clearMessage(); 
     }
+  };
+
+  const clearMessage = () => {
+    setTimeout(() => {
+      setMessage({ text: '', type: '' });
+    }, 3000);
   };
 
   return (
     <div className="order-form">
       <h2>Realizar Pedido</h2>
-      
-      {/* Input para Locale */}
+
       <div className="input-group">
         <label htmlFor="locale">Local</label>
         <input
@@ -60,8 +69,7 @@ const OrderForm = () => {
           required
         />
       </div>
-      
-      {/* Input para Client */}
+
       <div className="input-group">
         <label htmlFor="client">Cliente</label>
         <input
@@ -74,7 +82,17 @@ const OrderForm = () => {
         />
       </div>
 
-      {/* Lista de itens do menu */}
+      <div className="input-group">
+        <label htmlFor="observations">Observações</label>
+        <input
+          type="text"
+          id="observations"
+          value={observations}
+          onChange={(e) => setObservations(e.target.value)}
+          placeholder="Digite suas observações"
+        />
+      </div>
+
       <ul className="menu-list">
         {menuItems.map((item) => (
           <li
@@ -87,10 +105,15 @@ const OrderForm = () => {
         ))}
       </ul>
 
-      {/* Botão para confirmar o pedido */}
       <button className="confirm-button" onClick={handleSubmit}>
         Confirmar Pedido
       </button>
+
+      {message.text && (
+        <div className={`message ${message.type}`}>
+          {message.text}
+        </div>
+      )}
     </div>
   );
 };

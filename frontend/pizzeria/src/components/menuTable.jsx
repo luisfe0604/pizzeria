@@ -66,13 +66,13 @@ const MenuTable = () => {
     };
 
     const handleToggleActive = async (item) => {
-        const updatedItem = { ...item, active: !item.active }; // Inverte o valor de active
+        const updatedItem = { ...item, active: !item.active }; 
         await axios.put(`http://localhost:3000/menu/${item.id}`, updatedItem, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
         });
-        fetchMenuItems(); // Atualiza a lista
+        fetchMenuItems();
     };
 
     return (

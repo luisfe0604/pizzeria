@@ -3,7 +3,8 @@ const Joi = require('joi');
 const createOrderSchema = Joi.object({
     items: Joi.array().items(Joi.number().integer()).required(),
     locale: Joi.string().required(),
-    client: Joi.string().required()
+    client: Joi.string().required(),
+    observations: Joi.string()
 });
 
 const finishOrderSchema = Joi.object({
