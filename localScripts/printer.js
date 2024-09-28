@@ -6,7 +6,7 @@ const device = new escpos.USB();
 const options = { encoding: "GB18030" }; 
 const printer = new escpos.Printer(device, options);
 
-const wsServerUrl = 'ws://endereco_do_servidor:3000'; 
+const wsServerUrl = 'wss://endereco_do_servidor:3000'; 
 
 function connectWebSocket() {
     const ws = new WebSocket(wsServerUrl);

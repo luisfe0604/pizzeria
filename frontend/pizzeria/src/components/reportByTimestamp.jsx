@@ -51,7 +51,7 @@ const OrdersWithTimestamps = () => {
     setStartTimestamp(startOfDay);
     setEndTimestamp(endOfDay);
 
-    const socket = new WebSocket('ws://pizzeria-l6im.onrender.com/');
+    const socket = new WebSocket('wss://pizzeria-l6im.onrender.com/');
 
     socket.onmessage = (event) => {
       const newOrder = JSON.parse(event.data);
