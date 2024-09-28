@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: "Libre Baskerville", "Arial", serif;
     background: linear-gradient(to bottom, #00416A, #d5eaff);
     color: white;
     text-align: center;
@@ -62,4 +62,41 @@ ul li .value {
     float: right;
     font-size: 1rem;
     color: lightgray;
+}
+
+.logo {
+    width: 150px; 
+    border-radius: 50%;
+    height: auto;
+    position: absolute; 
+    top: 3%;
+    left: 3%; 
+    z-index: 10; 
+}
+
+@media (max-width: 768px) { 
+    .menu {
+        width: 80%;
+    }
+
+    .logo {
+        position: static;
+        margin: 20px auto;
+        display: block;
+    }
+
+    h1 {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) { 
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    ul li {
+        font-size: 1rem;
+    }
 }
