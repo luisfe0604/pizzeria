@@ -13,7 +13,7 @@ const OrderForm = () => {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/menu');
+        const response = await axios.get('https://pizzeria-l6im.onrender.com/menu');
         setMenuItems(response.data);
       } catch (error) {
         console.error('Erro ao buscar itens do menu:', error);
@@ -38,7 +38,7 @@ const OrderForm = () => {
         client,
         observations,
       };
-      await axios.post('http://localhost:3000/order', orderData);
+      await axios.post('https://pizzeria-l6im.onrender.com/order', orderData);
       setMessage({ text: 'Pedido realizado com sucesso!', type: 'success' });
       clearMessage();
     } catch (error) {

@@ -19,7 +19,7 @@ const OrdersWithTimestamps = () => {
     try {
       setLoading(true); 
 
-      const response = await axios.post('http://localhost:3000/order/all', {
+      const response = await axios.post('https://pizzeria-l6im.onrender.com/order/all', {
         startTimestamp: startTimestamp || new Date(new Date().setMinutes(new Date().getMinutes() - 1)),
         endTimestamp: endTimestamp || new Date(),
       });
@@ -51,7 +51,7 @@ const OrdersWithTimestamps = () => {
     setStartTimestamp(startOfDay);
     setEndTimestamp(endOfDay);
 
-    const socket = new WebSocket('ws://localhost:3000/');
+    const socket = new WebSocket('ws://pizzeria-l6im.onrender.com/');
 
     socket.onmessage = (event) => {
       const newOrder = JSON.parse(event.data);

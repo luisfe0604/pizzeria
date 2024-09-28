@@ -8,7 +8,7 @@ const OrderCard = ({ order, onFinish }) => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/menu');
+      const response = await axios.get('https://pizzeria-l6im.onrender.com/menu');
       setMenuItems(response.data);
     } catch (error) {
       console.error('Erro ao buscar itens do cardápio:', error);
@@ -29,7 +29,7 @@ const OrderCard = ({ order, onFinish }) => {
 
   const handleFinish = async () => {
     try {
-      await axios.put(`http://localhost:3000/order/${order.id}`, { value, status: false }, {
+      await axios.put(`https://pizzeria-l6im.onrender.com/order/${order.id}`, { value, status: false }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         }

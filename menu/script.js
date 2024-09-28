@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('http://localhost:3000/menu') 
+    fetch('https://pizzeria-l6im.onrender.com/menu') 
         .then(response => response.json())
         .then(data => {
             const ul = document.getElementById('pizza-items');

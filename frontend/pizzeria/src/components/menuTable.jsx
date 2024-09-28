@@ -17,7 +17,7 @@ const MenuTable = () => {
     const fetchMenuItems = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3000/menu/all', {
+            const response = await axios.get('https://pizzeria-l6im.onrender.com/menu/all', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -34,7 +34,7 @@ const MenuTable = () => {
     const handleAddItem = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/menu', newItem, {
+            await axios.post('https://pizzeria-l6im.onrender.com/menu', newItem, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -55,7 +55,7 @@ const MenuTable = () => {
     const handleUpdateItem = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:3000/menu/${editingItemId}`, newItem, {
+            await axios.put(`https://pizzeria-l6im.onrender.com/menu/${editingItemId}`, newItem, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
@@ -71,7 +71,7 @@ const MenuTable = () => {
 
     const handleToggleActive = async (item) => {
         const updatedItem = { ...item, active: !item.active }; 
-        await axios.put(`http://localhost:3000/menu/${item.id}`, updatedItem, {
+        await axios.put(`https://pizzeria-l6im.onrender.com/menu/${item.id}`, updatedItem, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },

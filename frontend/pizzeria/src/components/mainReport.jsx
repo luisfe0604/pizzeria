@@ -10,7 +10,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/order'); 
+      const response = await axios.get('https://pizzeria-l6im.onrender.com/order'); 
       const pedidosAbertos = response.data; 
       setOrders(pedidosAbertos);
     } catch (error) {
@@ -21,7 +21,7 @@ const Orders = () => {
   };
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000/');
+    const socket = new WebSocket('ws://pizzeria-l6im.onrender.com/');
 
     socket.onmessage = (event) => {
       const newOrder = JSON.parse(event.data);
