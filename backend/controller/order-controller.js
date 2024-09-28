@@ -25,6 +25,7 @@ module.exports = (broadcastData) => {
         }
         try {
             const { startTimestamp, endTimestamp } = req.body;
+            Order.cleanOldOrders()
             const orders = await Order.getOrderByTimestamp(startTimestamp, endTimestamp);
             res.status(200).json(orders);
         } catch (err) {

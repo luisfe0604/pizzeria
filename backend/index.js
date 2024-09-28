@@ -1,6 +1,8 @@
 const express = require('express');
 const http = require('http');
-const { wss, broadcastData } = require('./websocket/websocket'); // Importa o WebSocket e a função de broadcast
+const { wss, broadcastData } = require('./websocket/websocket'); 
+const cron = require('node-cron');
+const Order = require('./model/order');
 
 const cors = require('cors');
 
@@ -18,6 +20,11 @@ server.on('upgrade', (request, socket, head) => {
 });
 
 app.use(express.json());
+
+cron.schedule('0 0 * * *', async () => {
+    console.log('Iniciando limpeza de pedidos antigos...');
+    await Order.cleanOldOrders();
+});
 
 app.use('/', require('./controller/login-controller'));
 app.use('/order', require('./controller/order-controller')(broadcastData));

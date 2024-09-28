@@ -34,7 +34,11 @@ const MenuTable = () => {
     const handleAddItem = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/menu', newItem);
+            await axios.post('http://localhost:3000/menu', newItem, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
             setNewItem({ name: '', ingredients: '', value: '', active: true }); 
             fetchMenuItems();
         } catch (err) {

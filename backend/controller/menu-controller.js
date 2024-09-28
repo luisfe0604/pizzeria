@@ -50,6 +50,7 @@ router.post('/', authenticateToken,
     async (req, res) => {
         const { error } = createItemSchema.validate(req.body);
         if (error) {
+            console.log(error)
             return res.status(400).json({ error: error.details[0].message });
         }
         const { name, ingredients, value } = req.body;

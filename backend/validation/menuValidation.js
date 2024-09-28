@@ -3,7 +3,8 @@ const Joi = require('joi');
 const createItemSchema = Joi.object({
     name: Joi.string().required(),
     ingredients: Joi.string().required(),
-    value: Joi.number().min(0).required()
+    value: Joi.number().min(0).required(),
+    active: Joi.boolean()
 });
 
 const alterItemSchema = Joi.object({

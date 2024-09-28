@@ -8,7 +8,8 @@ const createOrderSchema = Joi.object({
 });
 
 const finishOrderSchema = Joi.object({
-    value: Joi.number().min(0).required()
+    value: Joi.number().min(0).required(),
+    status: Joi.boolean()
 });
 
 const idSchema = Joi.object({

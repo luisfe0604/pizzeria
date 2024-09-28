@@ -78,10 +78,24 @@ async function finishOrder(id, value) {
     }
 }
 
+async function cleanOldOrders() {
+
+    try {
+        await pool.query( `
+            DELETE FROM orders
+            WHERE start_timestamp < NOW() - INTERVAL '6 months';
+        `);
+
+    } catch (err) {
+        console.error('Erro ao limpar pedidos antigos:', err);
+    } 
+}
+
 module.exports = {
     getAllOpenOrders,
     getOrderById,
     getOrderByTimestamp, 
     addOrder,
     finishOrder,
+    cleanOldOrders
 };
