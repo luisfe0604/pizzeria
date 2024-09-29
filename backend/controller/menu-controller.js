@@ -53,9 +53,9 @@ router.post('/', authenticateToken,
             console.log(error)
             return res.status(400).json({ error: error.details[0].message });
         }
-        const { name, ingredients, value } = req.body;
+        const { name, ingredients, P, M, G, B } = req.body;
         try {
-            const newItem = await Menu.addMenuItem(name, ingredients, value);
+            const newItem = await Menu.addMenuItem(name, ingredients, P, M, G, B);
             res.status(201).json(newItem);
         } catch (err) {
             res.status(500).json({ error: 'Erro ao adicionar item ao menu' });
@@ -75,9 +75,9 @@ router.put('/:id', authenticateToken,
         }
 
         const id = parseInt(req.params.id);
-        const { name, ingredients, value, active } = req.body;
+        const { name, ingredients, P, M, G, B, active } = req.body;
         try {
-            const updatedItem = await Menu.updateMenuItem(id, name, ingredients, value, active);
+            const updatedItem = await Menu.updateMenuItem(id, name, ingredients, P, M, G, B, active);
             if (updatedItem) {
                 res.status(200).json(updatedItem);
             } else {

@@ -35,14 +35,14 @@ async function getMenuItemById(id) {
   }
 }
 
-async function addMenuItem(name, ingredients, value) {
+async function addMenuItem(name, ingredients, P, M, G, B) {
   try {
     const result = await pool.query(
       `INSERT INTO menu 
-      (name, ingredients, value, active) 
-      VALUES ($1, $2, $3, true) 
+      (name, ingredients, p, m, g, b, active) 
+      VALUES ($1, $2, $3, $4, $5, $6, true) 
       RETURNING *`,
-      [name, ingredients, value]
+      [name, ingredients, P, M, G, B]
     );
     return result.rows[0];
   } catch (err) {
@@ -51,17 +51,20 @@ async function addMenuItem(name, ingredients, value) {
   }
 }
 
-async function updateMenuItem(id, name, ingredients, value, active) {
+async function updateMenuItem(id, name, ingredients, P, M, G, B, active) {
   try {
     const result = await pool.query(
       `UPDATE menu SET 
         name = $1, 
         ingredients = $2, 
-        value = $3,  
-        active = $4
-       WHERE id = $5 
+        p = $3, 
+        m = $4,
+        g = $5,
+        b = $6, 
+        active = $7
+       WHERE id = $8 
        RETURNING *`,
-      [name, ingredients, value, active, id]
+      [name, ingredients, P, M, G, B, active, id]
     );
     return result.rows[0];
   } catch (err) {
