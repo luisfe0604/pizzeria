@@ -357,13 +357,84 @@ button:disabled {
     border-color: #1976d2;
     outline: none;
 }
-
 .finished-message {
     background-color: #ababab; 
     border: 1px solid #6c6c6c; 
     color: #434343;
-    padding: 5px 15px; 
-    font-size: 13px; 
-    font-weight: bold; 
+    padding: 12px;
+    margin: 10px 10px;
+    border-radius: 8px;
+    font-weight: bold;
     text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.finished-message:hover {
+    background-color: #c3e6cb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.notification-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .success {
+    background-color: #4caf50; 
+    color: white;
+  }
+  
+  .error {
+    background-color: #f44336; 
+    color: white;
+  }
+
+  .reportButton{
+    margin: 10px!important;
+    height: 50px;
+    width: 15%;
+  }
+
+  .addItem{
+    width: 60px;
+}
+
+.addItemText{
+    width: 120px;
+}
+
+.pizza-form{
+    display: flex;
+    flex-direction: row;
+}
+
+.inputForm{
+    margin-right: 10px!important;
+}
+
+.buttonAdd{
+    margin-bottom: 15px!important;
+}   
+  @media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+    }
+    .sidebar {
+        display: none; 
+    }
+    .order-form {
+        width: 85vw;   
+        margin: 0;
+    }
 }
