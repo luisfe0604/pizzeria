@@ -30,7 +30,7 @@ h2 {
 
 h3 {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 1.5rem;
     border-bottom: 1px solid white;
     padding-bottom: 10px;
@@ -62,7 +62,18 @@ ul li .value {
     float: right;
     font-size: 1rem;
     color: lightgray;
+    padding-right: 10px;
 }
+
+.size{
+    display: flex;
+    flex-direction: row;
+}
+
+.size-item{
+    margin-right: 20px;
+}
+
 
 .logo {
     width: 150px; 

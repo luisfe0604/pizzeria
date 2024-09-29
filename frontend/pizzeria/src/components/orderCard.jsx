@@ -16,12 +16,8 @@ const OrderCard = ({ order, onFinish }) => {
   };
 
   const getOrderedItemsNames = () => {
-    const orderedItems = order.items.map(itemId => {
-      const menuItem = menuItems.find(item => item.id === itemId);
-      return menuItem ? menuItem.name : 'Item não encontrado';
-    });
-    return orderedItems.join(', '); 
-  };
+    return order.items.join(', ');
+  };  
 
   useEffect(() => {
     fetchMenuItems(); 

@@ -5,7 +5,7 @@ import '../App.css';
 
 const MenuTable = () => {
     const [menuItems, setMenuItems] = useState([]);
-    const [newItem, setNewItem] = useState({ name: '', ingredients: '', value: '', active: true });
+    const [newItem, setNewItem] = useState({ name: '', ingredients: '', P: '', M: '', G: '', B: '', active: true });
     const [editingItemId, setEditingItemId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ const MenuTable = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-            setMenuItems(response.data.sort((a, b) => a.name.localeCompare(b.name))); 
+            setMenuItems(response.data.sort((a, b) => a.name.localeCompare(b.name)));
         } catch (err) {
             console.error('Erro ao buscar itens do menu:', err);
             setError('Erro ao buscar itens do menu');
@@ -39,7 +39,7 @@ const MenuTable = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-            setNewItem({ name: '', ingredients: '', value: '', active: true }); 
+            setNewItem({ name: '', ingredients: '', P: '', M: '', G: '', B: '', active: true });
             fetchMenuItems();
         } catch (err) {
             console.error('Erro ao adicionar item:', err);
@@ -49,7 +49,7 @@ const MenuTable = () => {
 
     const handleEditClick = (item) => {
         setEditingItemId(item.id);
-        setNewItem({ name: item.name, ingredients: item.ingredients, value: item.value, active: item.active });
+        setNewItem({ name: item.name, ingredients: item.ingredients, P: item.p, M: item.m, G: item.g, B: item.b, active: item.active });
     };
 
     const handleUpdateItem = async (e) => {
@@ -61,7 +61,7 @@ const MenuTable = () => {
                 },
             });
             setEditingItemId(null);
-            setNewItem({ name: '', ingredients: '', value: '', active: true });
+            setNewItem({ name: '', ingredients: '', P: '', M: '', G: '', B: '', active: true });
             fetchMenuItems();
         } catch (err) {
             console.error('Erro ao atualizar item:', err);
@@ -70,7 +70,7 @@ const MenuTable = () => {
     };
 
     const handleToggleActive = async (item) => {
-        const updatedItem = { ...item, active: !item.active }; 
+        const updatedItem = { name: item.name, ingredients: item.ingredients, P: item.p, M: item.m, G: item.g, B: item.b, active: !item.active };
         await axios.put(`https://pizzeria-l6im.onrender.com/menu/${item.id}`, updatedItem, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -100,15 +100,44 @@ const MenuTable = () => {
                     onChange={(e) => setNewItem({ ...newItem, ingredients: e.target.value })}
                     required
                 />
-                <TextField
-                    className="input-field"
-                    label="Preço"
-                    variant="outlined"
-                    type="number"
-                    value={newItem.value}
-                    onChange={(e) => setNewItem({ ...newItem, value: e.target.value })}
-                    required
-                />
+                <div className='inputForm'>
+                    <TextField
+                        className="addItemText inputForm"
+                        label="P"
+                        variant="outlined"
+                        type="number"
+                        value={newItem.P}
+                        onChange={(e) => setNewItem({ ...newItem, P: e.target.value })}
+                        required
+                    />
+                    <TextField
+                        className="addItemText inputForm"
+                        label="M"
+                        variant="outlined"
+                        type="number"
+                        value={newItem.M}
+                        onChange={(e) => setNewItem({ ...newItem, M: e.target.value })}
+                        required
+                    />
+                    <TextField
+                        className="addItemText inputForm"
+                        label="G"
+                        variant="outlined"
+                        type="number"
+                        value={newItem.G}
+                        onChange={(e) => setNewItem({ ...newItem, G: e.target.value })}
+                        required
+                    />
+                    <TextField
+                        className="addItemText inputForm"
+                        label="B"
+                        variant="outlined"
+                        type="number"
+                        value={newItem.B}
+                        onChange={(e) => setNewItem({ ...newItem, B: e.target.value })}
+                        required
+                    />
+                </div>
                 <Button className="submit-button" type="submit">
                     {editingItemId ? 'Atualizar Item' : 'Adicionar Item'}
                 </Button>
@@ -123,8 +152,11 @@ const MenuTable = () => {
                             <TableRow>
                                 <TableCell>Nome</TableCell>
                                 <TableCell>Ingredientes</TableCell>
-                                <TableCell>Preço</TableCell>
-                                <TableCell>Ativo</TableCell> {/* Nova coluna Ativo */}
+                                <TableCell>P</TableCell>
+                                <TableCell>M</TableCell>
+                                <TableCell>G</TableCell>
+                                <TableCell>B</TableCell>
+                                <TableCell>Ativo</TableCell>
                                 <TableCell>Ações</TableCell>
                             </TableRow>
                         </TableHead>
@@ -133,7 +165,10 @@ const MenuTable = () => {
                                 <TableRow key={item.id}>
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.ingredients}</TableCell>
-                                    <TableCell>{item.value}</TableCell>
+                                    <TableCell>{item.p}</TableCell>
+                                    <TableCell>{item.m}</TableCell>
+                                    <TableCell>{item.g}</TableCell>
+                                    <TableCell>{item.b}</TableCell>
                                     <TableCell>
                                         <Button onClick={() => handleToggleActive(item)}>
                                             {item.active ? 'Desativar' : 'Ativar'}

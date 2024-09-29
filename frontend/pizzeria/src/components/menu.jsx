@@ -9,7 +9,7 @@ const OrderForm = () => {
   const [client, setClient] = useState('');
   const [observations, setObservations] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' });
-  const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '' }]); // Inicializa com uma pizza
+  const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '' }]);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -24,7 +24,11 @@ const OrderForm = () => {
   }, []);
 
   const handleAddPizza = () => {
-    setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '' }]); // Adiciona uma nova linha
+    setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '' }]);
+  };
+
+  const handleRemovePizza = (indexToRemove) => {
+    setPizzas(pizzas.filter((_, index) => index !== indexToRemove));
   };
 
   const handleSubmit = async () => {
@@ -102,7 +106,6 @@ const OrderForm = () => {
           <div className="pizza-form">
             <div className="input-group">
               <FormControl fullWidth variant="outlined" className='inputForm'>
-                <InputLabel>Tipo</InputLabel>
                 <Select
                   value={pizza.type}
                   className='addItem'
@@ -220,6 +223,15 @@ const OrderForm = () => {
                 </div>
               </>
             )}
+
+            <Button
+              variant="contained"
+              color="secondary"
+              className='buttonRemove'
+              onClick={() => handleRemovePizza(index)}
+            >
+              -
+            </Button>
           </div>
         </div>
       ))}
