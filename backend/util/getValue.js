@@ -2,9 +2,15 @@ const Menu = require('../model/menu');
 
 async function getTotalValue(ids) {
     const orders = await Promise.all(ids.map(async id => {
-        const [name, size] = id.split('-');
-        const menuItem = await Menu.getMenuItemByNameAndSize(name, size.toLowerCase());
-        return menuItem ? menuItem.price : 0; 
+        const [names, size] = id.split('-');
+        const itemNames = names.split('/');
+        
+        const prices = await Promise.all(itemNames.map(async name => {
+            const menuItem = await Menu.getMenuItemByNameAndSize(name.trim(), size.toLowerCase());
+            return menuItem ? menuItem.price / 2 : 0;
+        }));
+
+        return prices.reduce((acc, price) => acc + Number(price), 0);
     }));
 
     const totalValue = orders.reduce((accumulator, price) => {
@@ -13,5 +19,4 @@ async function getTotalValue(ids) {
 
     return totalValue;
 }
-
 module.exports = { getTotalValue };

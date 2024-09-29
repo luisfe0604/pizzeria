@@ -3,7 +3,7 @@ const pool = require(`../helper/dbConfig`);
 async function getAllMenuItemsActives() {
   try {
     const result = await pool.query(`SELECT * FROM menu WHERE active = true`);
-    return result.rows; 
+    return result.rows;
   } catch (err) {
     console.error(`Erro ao buscar itens do menu:`, err);
     throw err;
@@ -13,7 +13,7 @@ async function getAllMenuItemsActives() {
 async function getAllMenuItems() {
   try {
     const result = await pool.query(`SELECT * FROM menu`);
-    return result.rows; 
+    return result.rows;
   } catch (err) {
     console.error(`Erro ao buscar itens do menu:`, err);
     throw err;
@@ -23,12 +23,12 @@ async function getAllMenuItems() {
 async function getMenuItemById(id) {
   try {
     const result = await pool.query(
-        `SELECT * 
+      `SELECT * 
         FROM menu 
-        WHERE id = $1`, 
-        [id]
+        WHERE id = $1`,
+      [id]
     );
-    return result.rows[0]; 
+    return result.rows[0];
   } catch (err) {
     console.error(`Erro ao buscar item do menu com ID ${id}:`, err);
     throw err;
@@ -38,24 +38,24 @@ async function getMenuItemById(id) {
 async function getMenuItemByNameAndSize(name, size) {
   try {
     const query = `
-      SELECT 
-        CASE 
-          WHEN $1 = 'p' THEN p
-          WHEN $1 = 'm' THEN m
-          WHEN $1 = 'g' THEN g
-          WHEN $1 = 'b' THEN b
-        END AS price
-      FROM 
-        menu 
-      WHERE 
-        name = $2;
-    `;
+          SELECT 
+              CASE 
+                  WHEN $1 = 'p' THEN p
+                  WHEN $1 = 'm' THEN m
+                  WHEN $1 = 'g' THEN g
+                  WHEN $1 = 'b' THEN b
+              END AS price
+          FROM 
+              menu 
+          WHERE 
+              name = $2;
+      `;
 
     const result = await pool.query(query, [size.toLowerCase(), name]);
-    return result.rows[0]; 
+    return result.rows[0];
   } catch (err) {
     console.error(`Erro ao buscar item do menu com nome ${name} e tamanho ${size}:`, err);
-    throw err; 
+    throw err;
   }
 }
 
@@ -98,7 +98,7 @@ async function updateMenuItem(id, name, ingredients, P, M, G, B, active) {
 }
 
 module.exports = {
-  getAllMenuItemsActives, 
+  getAllMenuItemsActives,
   getAllMenuItems,
   getMenuItemById,
   getMenuItemByNameAndSize,
