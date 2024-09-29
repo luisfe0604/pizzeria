@@ -35,6 +35,30 @@ async function getMenuItemById(id) {
   }
 }
 
+async function getMenuItemByNameAndSize(name, size) {
+  try {
+    const query = `
+      SELECT 
+        CASE 
+          WHEN $1 = 'p' THEN p
+          WHEN $1 = 'm' THEN m
+          WHEN $1 = 'g' THEN g
+          WHEN $1 = 'b' THEN b
+        END AS price
+      FROM 
+        menu 
+      WHERE 
+        name = $2;
+    `;
+
+    const result = await pool.query(query, [size.toLowerCase(), name]);
+    return result.rows[0]; 
+  } catch (err) {
+    console.error(`Erro ao buscar item do menu com nome ${name} e tamanho ${size}:`, err);
+    throw err; 
+  }
+}
+
 async function addMenuItem(name, ingredients, P, M, G, B) {
   try {
     const result = await pool.query(
@@ -77,6 +101,7 @@ module.exports = {
   getAllMenuItemsActives, 
   getAllMenuItems,
   getMenuItemById,
+  getMenuItemByNameAndSize,
   addMenuItem,
   updateMenuItem,
 };

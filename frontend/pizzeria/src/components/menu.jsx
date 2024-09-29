@@ -43,16 +43,8 @@ const OrderForm = () => {
         observations,
       };
 
-      const totalPrice = pizzas.reduce((total, pizza) => {
-        const item = menuItems.find(item => item.name === pizza.flavor1 || item.name === pizza.flavor2);
-        const price = item ? Number(item.value) : 0;
-        return total + (pizza.type === 'whole' ? price : price / 2);
-      }, 0);
-      console.log(orderData)
-
       await axios.post('https://pizzeria-l6im.onrender.com/order', {
         ...orderData,
-        value: totalPrice.toFixed(2), // Passa o total para o formato correto
       });
       setMessage({ text: 'Pedido realizado com sucesso!', type: 'success' });
       clearMessage();
