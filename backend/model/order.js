@@ -5,7 +5,8 @@ async function getAllOpenOrders() {
         const result = await pool.query(
             `SELECT * 
             FROM orders
-            WHERE status = true`
+            WHERE status = true
+            ORDER BY start_timestamp DESC`
         );
         return result.rows;
     } catch (err) {
@@ -34,7 +35,8 @@ async function getOrderByTimestamp(startTimestamp, endTimestamp) {
         const result = await pool.query(
             `SELECT * 
             FROM orders 
-            WHERE start_timestamp BETWEEN $1 AND $2`,
+            WHERE start_timestamp BETWEEN $1 AND $2
+            ORDER BY start_timestamp DESC`,
             [startTimestamp, endTimestamp]
         );
         return result.rows;
