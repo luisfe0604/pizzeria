@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="value">$${Number(item.p).toFixed(2)}</span></div>
                     <div class="ingredients">${item.ingredients}</div>
                 `;
-                ul.appendChild(li).toFixed(2);
+                ul.appendChild(li);
             });
         })
         .catch(error => console.error('Erro ao carregar os itens:', error));
