@@ -7,7 +7,7 @@ async function getTotalValue(ids) {
         
         const prices = await Promise.all(itemNames.map(async name => {
             const menuItem = await Menu.getMenuItemByNameAndSize(name.trim(), size.toLowerCase());
-            return menuItem ? menuItem.price / 2 : 0;
+            return menuItem ? (names.includes('/') ? menuItem.price / 2 : menuItem.price) : 0;
         }));
 
         return prices.reduce((acc, price) => acc + Number(price), 0);
@@ -19,4 +19,5 @@ async function getTotalValue(ids) {
 
     return totalValue;
 }
+
 module.exports = { getTotalValue };
