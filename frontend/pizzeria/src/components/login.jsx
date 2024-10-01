@@ -10,6 +10,10 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); 
 
+  const removeToken = () => {
+    localStorage.removeItem('token');
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -54,8 +58,11 @@ const Login = () => {
           />
         </div>
         {error && <p className="error-message">{error}</p>}
-        <button type="submit" disabled={loading || !username || !password}>
+        <button type="submit" disabled={loading || !username || !password} className='buttonAdd'>
           {loading ? 'Carregando...' : 'Entrar'}
+        </button>
+        <button onClick={removeToken} disabled={loading} className='buttonRemove'>
+          {loading ? 'Carregando...' : 'Sair'}
         </button>
       </form>
     </div>
