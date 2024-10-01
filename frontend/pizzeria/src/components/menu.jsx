@@ -32,14 +32,38 @@ const OrderForm = () => {
   };
 
   const handleSubmit = async () => {
+    for (const pizza of pizzas) {
+      const { type, flavor1, flavor2, size } = pizza;
+
+      if (type === 'half') {
+        if (!flavor1 || !flavor2) {
+          setMessage({ text: 'Por favor, selecione os dois sabores para pizzas meio a meio.', type: 'error' });
+          clearMessage();
+          return;
+        }
+      }
+
+      if (type === 'whole' && !flavor1) {
+        setMessage({ text: 'Por favor, selecione o sabor da pizza inteira.', type: 'error' });
+        clearMessage();
+        return;
+      }
+
+      if (!size) {
+        setMessage({ text: 'Por favor, selecione o tamanho da pizza.', type: 'error' });
+        clearMessage();
+        return;
+      }
+    }
+
     try {
       const orderData = {
         items: pizzas.map((pizza) => {
           const { type, flavor1, flavor2, size } = pizza;
           if (type === 'whole') {
-            return `${flavor1}-${size}`; // Pizza inteira
+            return `${flavor1}-${size}`;
           } else {
-            return `${flavor1}/${flavor2}-${size}`; // Meia pizza
+            return `${flavor1}/${flavor2}-${size}`;
           }
         }),
         locale,
@@ -58,6 +82,7 @@ const OrderForm = () => {
       clearMessage();
     }
   };
+
 
   const clearMessage = () => {
     setTimeout(() => {
