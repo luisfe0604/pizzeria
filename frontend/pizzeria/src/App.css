@@ -415,6 +415,10 @@ button:disabled {
     background-color: rgb(175, 21, 21) !important;
 }
 
+.exit{
+    margin-top: 80% !important;
+}
+
 @media (max-width: 768px) and (orientation: portrait){
     body {
         display: flex;

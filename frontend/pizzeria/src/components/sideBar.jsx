@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css'; 
+import { Button } from '@mui/material';
 
 const Sidebar = () => {
+  const removeToken = () => {
+    localStorage.removeItem('token');
+  };
   return (
     <div className="sidebar">
       <h2>Menu</h2>
@@ -23,6 +27,9 @@ const Sidebar = () => {
           <Link to="/reportTimestamp">Relatório</Link>
         </li>
       </ul>
+        <Button variant="contained" onClick={removeToken} className='buttonRemove exit'>
+        Sair
+      </Button>
     </div>
   );
 };
