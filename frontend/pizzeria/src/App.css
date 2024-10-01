@@ -415,7 +415,7 @@ button:disabled {
     background-color: rgb(175, 21, 21) !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation: portrait){
     body {
         display: flex;
         flex-direction: column;
@@ -441,18 +441,58 @@ button:disabled {
         padding: 10px;
     }
 
-    /* Input flexível */
     .input-group {
         margin-bottom: 10px;
     }
 
-    /* Pizza Form flexível */
     .pizza-form {
         display: flex;
         flex-direction: column;
     }
 
-    /* Campos de seleção responsivos */
+    .addItem,
+    .addItemText,
+    .inputForm {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape){
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: -260px;
+        padding: 0;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .order-form {
+        width: 95%;
+        margin: 0;
+    }
+
+    .buttonAdd,
+    .buttonRemove,
+    .submit-button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    .pizza-form {
+        display: flex;
+        flex-direction: column;
+    }
+
     .addItem,
     .addItemText,
     .inputForm {
