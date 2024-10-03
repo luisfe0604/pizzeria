@@ -2,106 +2,6 @@ body {
     background-color: #004680;
 }
 
-.order-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s;
-}
-
-.order-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.order-card strong {
-    display: inline-block;
-    margin-bottom: 4px;
-}
-
-.order-card input[type="number"] {
-    width: 70%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 12px;
-}
-
-.order-card button {
-    width: 15%;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    padding: 10px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.order-card button:hover {
-    background-color: #218838;
-}
-
-.login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.input-group input {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.error-message {
-    color: red;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #35c5e9;
-}
-
-button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
 .sidebar {
     width: 200px;
     height: 100%;
@@ -150,6 +50,10 @@ button:disabled {
     padding-left: 15px;
 }
 
+.exit{
+    margin-top: 80% !important;
+}
+
 .order-form {
     max-width: 400px;
     margin: 0 auto;
@@ -162,6 +66,248 @@ button:disabled {
 .order-form h2 {
     text-align: center;
     margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pizza-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonRemove {
+    margin-bottom: 15px !important;
+    background-color: rgb(175, 21, 21) !important;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #35c5e9;
+}
+
+button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.buttonAdd {
+    margin-bottom: 15px !important;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.order-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-card strong {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.order-card input[type="number"] {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.order-card button {
+    width: 15%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.order-card button:hover {
+    background-color: #218838;
+}
+
+.dateTime {
+    margin: 10px !important;
+}
+
+.dateTime:focus {
+    border-color: #1976d2;
+    outline: none;
+}
+
+.finished-message {
+    background-color: #ababab;
+    border: 1px solid #6c6c6c;
+    color: #434343;
+    padding: 12px;
+    margin: 10px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.finished-message:hover {
+    background-color: #c3e6cb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-table {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.addItemText {
+    width: 95px;
+}
+
+.addItem {
+    width: 60px;
+}
+
+.inputForm {
+    margin-right: 10px !important;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.input-field {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.input-field:focus {
+    border-color: #1976d2;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.order-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.menu-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    border-radius: 4px;
+}
+
+.reportButton {
+    margin: 10px !important;
+    height: 50px;
+    width: 15%;
+}
+
+/*----------------------- Sem Utilidade -----------------------*/
+
+.menu-table-container {
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    margin: auto;
 }
 
 .menu-list {
@@ -192,7 +338,7 @@ button:disabled {
     display: block;
     margin-top: 10px;
     font-size: 14px;
-    color: #555;
+    color: #463a3a;
 }
 
 .confirm-button {
@@ -210,15 +356,6 @@ button:disabled {
 
 .confirm-button:hover {
     background-color: #00796b;
-}
-
-.menu-table-container {
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    max-width: 800px;
-    margin: auto;
 }
 
 .table-header {
@@ -245,20 +382,6 @@ button:disabled {
     font-weight: 600;
 }
 
-.input-field {
-    margin: 10px 0;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
-}
-
-.input-field:focus {
-    border-color: #1976d2;
-}
-
 .add-button {
     background-color: #4caf50;
     color: white;
@@ -278,91 +401,6 @@ button:disabled {
     margin: 20px 0;
 }
 
-.menu-table {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.menu-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.input-field {
-    border-radius: 4px;
-}
-
-.submit-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.submit-button:hover {
-    background-color: #0056b3;
-}
-
-.order-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.order-table th,
-.order-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.order-table th {
-    background-color: #007bff;
-    color: white;
-}
-
-.order-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.error-message {
-    color: red;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.dateTime {
-    margin: 10px !important;
-}
-
-.dateTime:focus {
-    border-color: #1976d2;
-    outline: none;
-}
-
-.finished-message {
-    background-color: #ababab;
-    border: 1px solid #6c6c6c;
-    color: #434343;
-    padding: 12px;
-    margin: 10px 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.finished-message:hover {
-    background-color: #c3e6cb;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 .notification-message {
     position: fixed;
     bottom: 20px;
@@ -379,45 +417,11 @@ button:disabled {
 }
 
 .error {
-    background-color: #f44336;
+    background-color: #f43649;
     color: white;
 }
 
-.reportButton {
-    margin: 10px !important;
-    height: 50px;
-    width: 15%;
-}
-
-.addItem {
-    width: 60px;
-}
-
-.addItemText {
-    width: 95px;
-}
-
-.pizza-form {
-    display: flex;
-    flex-direction: row;
-}
-
-.inputForm {
-    margin-right: 10px !important;
-}
-
-.buttonAdd {
-    margin-bottom: 15px !important;
-}
-
-.buttonRemove {
-    margin-bottom: 15px !important;
-    background-color: rgb(175, 21, 21) !important;
-}
-
-.exit{
-    margin-top: 80% !important;
-}
+/*----------------------- Sem Utilidade -----------------------*/
 
 @media (max-width: 768px) and (orientation: portrait){
     body {
