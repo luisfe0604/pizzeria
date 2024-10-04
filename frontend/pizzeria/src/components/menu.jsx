@@ -68,7 +68,10 @@ const OrderForm = () => {
         }),
         locale,
         client,
-        borders,
+        borders: pizzas.map((pizza) => {
+          const { borders } = pizza;
+          return `${borders}`;
+        }),
         observations,
       };
 
