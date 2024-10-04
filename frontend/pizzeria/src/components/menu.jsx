@@ -9,7 +9,7 @@ const OrderForm = () => {
   const [client, setClient] = useState('');
   const [observations, setObservations] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' });
-  const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '', border: '' }]);
+  const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '', borders: '' }]);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -24,7 +24,7 @@ const OrderForm = () => {
   }, []);
 
   const handleAddPizza = () => {
-    setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '', border: '' }]);
+    setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '', borders: '' }]);
   };
 
   const handleRemovePizza = (indexToRemove) => {
@@ -68,6 +68,7 @@ const OrderForm = () => {
         }),
         locale,
         client,
+        borders,
         observations,
       };
 
@@ -167,11 +168,11 @@ const OrderForm = () => {
               <div className="input-group-s">
                 <FormControl fullWidth variant="outlined" className='inputFormS'>
                   <Select
-                    value={pizza.border}
+                    value={pizza.borders}
                     className='addItem'
                     onChange={(e) => {
                       const newPizzas = [...pizzas];
-                      newPizzas[index].border = e.target.value;
+                      newPizzas[index].borders = e.target.value;
                       setPizzas(newPizzas);
                     }}
                   >
