@@ -70,7 +70,12 @@ const OrderForm = () => {
         client,
         borders: pizzas.map((pizza) => {
           const { borders } = pizza;
-          return `${borders}`;
+          if (borders) {
+            return `${borders}`;
+          } else {
+            return `S/B`;
+          }
+          
         }),
         observations,
       };
