@@ -16,7 +16,7 @@ const OrderCard = ({ order, onFinish }) => {
   };
 
   const getOrderedItemsNames = () => {
-    return order.items.map((item, index) => `${item} - borda:${order.borders ? order.borders[index] : ''}`).join(', ');
+    return order.items.map((item, index) => `${item} - borda:${order.borders[index] ? order.borders[index] : ''}`).join(', ');
   };  
 
   useEffect(() => {
