@@ -9,7 +9,7 @@ const OrderForm = () => {
   const [client, setClient] = useState('');
   const [observations, setObservations] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' });
-  const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '' }]);
+  const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '', border: '' }]);
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -24,7 +24,7 @@ const OrderForm = () => {
   }, []);
 
   const handleAddPizza = () => {
-    setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '' }]);
+    setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '', border: '' }]);
   };
 
   const handleRemovePizza = (indexToRemove) => {
@@ -129,26 +129,65 @@ const OrderForm = () => {
       {pizzas.map((pizza, index) => (
         <div key={index} className="pizza-selection">
           <div className="pizza-form">
-            <div className="input-group">
-              <FormControl fullWidth variant="outlined" className='inputForm'>
-                <Select
-                  value={pizza.type}
-                  className='addItem'
-                  onChange={(e) => {
-                    const newPizzas = [...pizzas];
-                    newPizzas[index].type = e.target.value;
-                    setPizzas(newPizzas);
-                  }}
-                >
-                  <MenuItem value="whole">I</MenuItem>
-                  <MenuItem value="half">M</MenuItem>
-                </Select>
-              </FormControl>
+            <div className='input-group-s'>
+              <div className="input-group-s">
+                <FormControl fullWidth variant="outlined" className='inputFormS'>
+                  <Select
+                    value={pizza.type}
+                    className='addItem'
+                    onChange={(e) => {
+                      const newPizzas = [...pizzas];
+                      newPizzas[index].type = e.target.value;
+                      setPizzas(newPizzas);
+                    }}
+                  >
+                    <MenuItem value="whole">I</MenuItem>
+                    <MenuItem value="half">M</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="input-group-s">
+                <FormControl fullWidth variant="outlined" className='inputFormS'>
+                  <Select
+                    value={pizza.size}
+                    className='addItem'
+                    onChange={(e) => {
+                      const newPizzas = [...pizzas];
+                      newPizzas[index].size = e.target.value;
+                      setPizzas(newPizzas);
+                    }}
+                  >
+                    <MenuItem value="P">P</MenuItem>
+                    <MenuItem value="M">M</MenuItem>
+                    <MenuItem value="G">G</MenuItem>
+                    <MenuItem value="B">B</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <div className="input-group-s">
+                <FormControl fullWidth variant="outlined" className='inputFormS'>
+                  <Select
+                    value={pizza.border}
+                    className='addItem'
+                    onChange={(e) => {
+                      const newPizzas = [...pizzas];
+                      newPizzas[index].border = e.target.value;
+                      setPizzas(newPizzas);
+                    }}
+                  >
+                    <MenuItem value="Catupiry">Catupiry</MenuItem>
+                    <MenuItem value="Cheddar">Cheddar</MenuItem>
+                    <MenuItem value="Choc. P">Choc. P</MenuItem>
+                    <MenuItem value="Choc. B">Choc. B</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
             </div>
+
 
             {pizza.type === 'whole' ? (
               <>
-                <div className="input-group">
+                <div className="input-group-s">
                   <FormControl fullWidth variant="outlined" className='inputForm'>
                     <InputLabel>Sabor</InputLabel>
                     <Select
@@ -167,29 +206,11 @@ const OrderForm = () => {
                     </Select>
                   </FormControl>
                 </div>
-                <div className="input-group">
-                  <FormControl fullWidth variant="outlined" className='inputForm'>
-                    <Select
-                      value={pizza.size}
-                      className='addItem'
-                      onChange={(e) => {
-                        const newPizzas = [...pizzas];
-                        newPizzas[index].size = e.target.value;
-                        setPizzas(newPizzas);
-                      }}
-                    >
-                      <MenuItem value="P">P</MenuItem>
-                      <MenuItem value="M">M</MenuItem>
-                      <MenuItem value="G">G</MenuItem>
-                      <MenuItem value="B">B</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
               </>
             ) : (
               <>
                 <div className="pizza-form">
-                  <div className="input-group">
+                  <div className="input-group-s">
                     <FormControl fullWidth variant="outlined" className='inputForm'>
                       <InputLabel>Sabor 1</InputLabel>
                       <Select
@@ -207,8 +228,7 @@ const OrderForm = () => {
                         ))}
                       </Select>
                     </FormControl>
-                  </div>
-                  <div className="input-group">
+
                     <FormControl fullWidth variant="outlined" className='inputForm'>
                       <InputLabel>Sabor 2</InputLabel>
                       <Select
@@ -227,24 +247,6 @@ const OrderForm = () => {
                       </Select>
                     </FormControl>
                   </div>
-                </div>
-                <div className="input-group">
-                  <FormControl fullWidth variant="outlined" className='inputForm'>
-                    <Select
-                      value={pizza.size}
-                      className='addItem'
-                      onChange={(e) => {
-                        const newPizzas = [...pizzas];
-                        newPizzas[index].size = e.target.value;
-                        setPizzas(newPizzas);
-                      }}
-                    >
-                      <MenuItem value="P">P</MenuItem>
-                      <MenuItem value="M">M</MenuItem>
-                      <MenuItem value="G">G</MenuItem>
-                      <MenuItem value="B">B</MenuItem>
-                    </Select>
-                  </FormControl>
                 </div>
               </>
             )}

@@ -86,7 +86,7 @@ body {
 
 .pizza-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .buttonRemove {
@@ -224,15 +224,22 @@ button:disabled {
 }
 
 .addItemText {
-    width: 95px;
+    width: 99%;
 }
 
 .addItem {
-    width: 60px;
+    width: 95%;
 }
 
-.inputForm {
-    margin-right: 10px !important;
+.inputForm, .inputFormS {
+    margin-right: 10px;
+}
+
+.input-group-s {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 .submit-button {
@@ -329,6 +336,10 @@ button:disabled {
         margin-bottom: 10px;
     }
 
+    .input-group-s{
+       align-items: space-between;
+    }
+
     .pizza-form {
         display: flex;
         flex-direction: column;
@@ -337,9 +348,11 @@ button:disabled {
     .addItem,
     .addItemText,
     .inputForm {
-        width: 100%;
-        margin-bottom: 10px;
+        width: 95%;
+        margin-right: 5px;
+        margin-bottom: 5px;
     }
+
 }
 
 @media (max-width: 1000px) and (orientation: landscape){
