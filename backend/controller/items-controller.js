@@ -28,10 +28,6 @@ router.get('/all',
 
 router.get('/:id',
     async (req, res) => {
-        const { error } = idSchema.validate({ id: req.params.id });
-        if (error) {
-            return res.status(400).json({ error: error.details[0].message });
-        }
         const id = parseInt(req.params.id);
         try {
             const menuItem = await Menu.getMenuItemById(id);
@@ -52,7 +48,7 @@ router.get('/:type',
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
-        const type = parseInt(req.params.type);
+        const type = req.params.type;
         try {
             const menuItem = await Menu.getMenuItemByType(type);
             if (menuItem) {
