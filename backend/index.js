@@ -29,6 +29,7 @@ cron.schedule('0 0 * * *', async () => {
 app.use('/', require('./controller/login-controller'));
 app.use('/order', require('./controller/order-controller')(broadcastData));
 app.use('/menu', require('./controller/menu-controller'));
+app.use('/items', require('./controller/items-controller'));
 
 server.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);

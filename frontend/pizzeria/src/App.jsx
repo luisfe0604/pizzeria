@@ -5,6 +5,7 @@ import Login from './components/login';
 import Orders from './components/mainReport'; 
 import Menu from './components/menu'; 
 import MenuTable from './components/menuTable'; 
+import ItemsTable from './components/itemsTable'; 
 import ReportTimestamp from './components/reportByTimestamp'; 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/orders" element={<Orders />} /> 
             <Route path="/menuTable" element={<MenuTable />} /> 
+            <Route path="/itemsTable" element={<ItemsTable />} /> 
             <Route path="/reportTimestamp" element={<ReportTimestamp />} /> 
           </Routes>
         </div>

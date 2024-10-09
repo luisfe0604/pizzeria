@@ -312,7 +312,7 @@ button:disabled {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        margin-left: -260px;
+        margin-left: -240px;
         padding: 0;
     }
 
@@ -321,7 +321,7 @@ button:disabled {
     }
 
     .order-form {
-        width: 95%;
+        width: 80vw !important;
         margin: 0;
     }
 
@@ -370,7 +370,7 @@ button:disabled {
     }
 
     .order-form {
-        width: 95%;
+        width: 95% !important;
         margin: 0;
     }
 

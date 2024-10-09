@@ -19,6 +19,10 @@ const OrderCard = ({ order, onFinish }) => {
     return order.items.map((item, index) => `${item} - borda: ${order.borders ? order.borders[index] : ''}`).join(', ');
   };  
 
+  const getOrderedOtherItemsNames = () => {
+    return order.otherItems.map((item, index) => `${item} x ${order.quantity ? order.quantity[index] : ''}`).join(', ');
+  };  
+
   useEffect(() => {
     fetchMenuItems(); 
   }, []);
@@ -39,7 +43,8 @@ const OrderCard = ({ order, onFinish }) => {
   return (
     <div className="order-card">
       <strong>Cliente:</strong> {order.client} <br />
-      <strong>Itens Pedidos:</strong> {getOrderedItemsNames()} <br />
+      <strong>Pizzas Pedidas:</strong> {getOrderedItemsNames()} <br />
+      <strong>Itens Pedidos:</strong> {getOrderedOtherItemsNames()} <br />
       <strong>Obs:</strong> {order.observations} <br />
       <strong>Data:</strong> {new Date(order.start_timestamp).toLocaleString()} <br />
       <strong>Valor:</strong>

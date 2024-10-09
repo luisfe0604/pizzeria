@@ -5,17 +5,29 @@ import '../App.css';
 
 const OrderForm = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+  const [portions, setPortions] = useState([]);
   const [locale, setLocale] = useState('');
   const [client, setClient] = useState('');
   const [observations, setObservations] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' });
   const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '', borders: '' }]);
+  const [otherItemsDrink, setOtherItemsDrink] = useState([{ item: '', quantity: '' }]);
+  const [otherItemsPortion, setOtherItemsPortion] = useState([{ item: '', quantity: '' }]);
+  const [otherItems, setOtherItems] = useState([{ item: '', quantity: '' }]);
+
 
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
         const response = await axios.get('https://pizzeria-l6im.onrender.com/menu');
         setMenuItems(response.data);
+
+        const drinksResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/drinks');
+        setDrinks(drinksResponse.data);
+
+        const portionsResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/portions');
+        setPortions(portionsResponse.data);
       } catch (error) {
         console.error('Erro ao buscar itens do menu:', error);
       }
@@ -29,6 +41,14 @@ const OrderForm = () => {
 
   const handleRemovePizza = (indexToRemove) => {
     setPizzas(pizzas.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleAddOtherItem = () => {
+    setOtherItems([...otherItems, { item: '', quantity: '' }]);
+  };
+
+  const handleRemoveOtherItem = (indexToRemove) => {
+    setOtherItems(otherItems.filter((_, index) => index !== indexToRemove));
   };
 
   const handleSubmit = async () => {
@@ -66,6 +86,10 @@ const OrderForm = () => {
             return `${flavor1}/${flavor2}-${size}`;
           }
         }),
+        otherItems: otherItems.map((other) => {
+          const { item, quantity } = other;
+          return `${item} x ${quantity}`;
+        }),
         locale,
         client,
         borders: pizzas.map((pizza) => {
@@ -75,7 +99,7 @@ const OrderForm = () => {
           } else {
             return `S/B`;
           }
-          
+
         }),
         observations,
       };
@@ -134,6 +158,8 @@ const OrderForm = () => {
           onChange={(e) => setObservations(e.target.value)}
         />
       </div>
+
+      <h2>Pizzas</h2>
 
       {pizzas.map((pizza, index) => (
         <div key={index} className="pizza-selection">
@@ -275,6 +301,133 @@ const OrderForm = () => {
       <Button variant="contained" onClick={handleAddPizza} className='buttonAdd'>
         Adicionar Pizza
       </Button>
+
+      <h2>Bebidas</h2>
+      {otherItemsDrink.map((drink, index) => (
+        <div key={index} className="pizza-selection">
+          <div className="pizza-form">
+            <div className="input-group-s">
+              <FormControl fullWidth variant="outlined" className='inputForm'>
+                <InputLabel>Bebida</InputLabel>
+                <Select
+                  value={drink.item}
+                  className='inputFormS'
+                  onChange={(e) => {
+                    const newDrinks = [...otherItemsDrink];
+                    newDrinks[index].item = e.target.value;
+                    setOtherItemsDrink(newDrinks);
+                    setOtherItems(newDrinks);
+                  }}
+                >
+                  <MenuItem value="">Selecione a Bebida</MenuItem>
+                  {drinks.map(item => (
+                    <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth variant="outlined" className='inputFormS'>
+                <Select
+                  value={drink.quantity}
+                  className='addItem'
+                  onChange={(e) => {
+                    const newDrinks = [...otherItemsDrink];
+                    newDrinks[index].quantity = e.target.value;
+                    setOtherItemsDrink(newDrinks);
+                  }}
+                >
+                  <MenuItem value="1">1</MenuItem>
+                  <MenuItem value="2">2</MenuItem>
+                  <MenuItem value="3">3</MenuItem>
+                  <MenuItem value="4">4</MenuItem>
+                  <MenuItem value="5">5</MenuItem>
+                  <MenuItem value="6">6</MenuItem>
+                  <MenuItem value="7">7</MenuItem>
+                  <MenuItem value="8">8</MenuItem>
+                  <MenuItem value="9">9</MenuItem>
+                  <MenuItem value="10">10</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              className='buttonRemove'
+              onClick={() => handleRemoveOtherItem(index)}
+            >
+              -
+            </Button>
+            <Button variant="contained" onClick={handleAddOtherItem} className='buttonAdd'>
+              Adicionar Bebida
+            </Button>
+          </div>
+        </div>
+      ))}
+
+      <h2>Porções</h2>
+      {otherItemsPortion.map((portion, index) => (
+        <div key={index} className="pizza-selection">
+          <div className="pizza-form">
+            <div className="input-group-s">
+              <FormControl fullWidth variant="outlined" className='inputForm'>
+                <InputLabel>Porção</InputLabel>
+                <Select
+                  value={portion.item}
+                  className='inputFormS'
+                  onChange={(e) => {
+                    const newPortion = [...otherItemsPortion];
+                    newPortion[index].item = e.target.value;
+                    setOtherItemsPortion(newPortion);
+                    setOtherItems(newPortion);
+                  }}
+                >
+                  <MenuItem value="">Selecione a Porção</MenuItem>
+                  {drinks.map(item => (
+                    <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth variant="outlined" className='inputFormS'>
+                <Select
+                  value={otherItems.quantity}
+                  className='addItem'
+                  onChange={(e) => {
+                    const newPortion = [...otherItemsPortion];
+                    newPortion[index].quantity = e.target.value;
+                    setPizzas(newPortion);
+                    setOtherItems(newPortion);
+                  }}
+                >
+                  <MenuItem value="1">1</MenuItem>
+                  <MenuItem value="2">2</MenuItem>
+                  <MenuItem value="3">3</MenuItem>
+                  <MenuItem value="4">4</MenuItem>
+                  <MenuItem value="5">5</MenuItem>
+                  <MenuItem value="6">6</MenuItem>
+                  <MenuItem value="7">7</MenuItem>
+                  <MenuItem value="8">8</MenuItem>
+                  <MenuItem value="9">9</MenuItem>
+                  <MenuItem value="10">10</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              className='buttonRemove'
+              onClick={() => handleRemoveOtherItem(index)}
+            >
+              -
+            </Button>
+            <Button variant="contained" onClick={handleAddOtherItem} className='buttonAdd'>
+              Adicionar Porção
+            </Button>
+          </div>
+        </div>
+      ))}
 
       <Button variant="contained" onClick={handleSubmit}>
         Enviar Pedido

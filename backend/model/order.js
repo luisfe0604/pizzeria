@@ -46,14 +46,14 @@ async function getOrderByTimestamp(startTimestamp, endTimestamp) {
     }
 }
 
-async function addOrder(items, borders, locale, client, totalValue, observations) {
+async function addOrder(items, otherItems, borders, locale, client, totalValue, observations) {
     try {
         const result = await pool.query(
             `INSERT INTO orders 
-            (locale, client, items, borders, value, observations, status) 
-            VALUES ($1, $2, $3, $4, $5, $6, true) 
+            (locale, client, items, otherItems, borders, value, observations, status) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, true) 
             RETURNING *`,
-            [locale, client, items, borders, totalValue, observations]
+            [locale, client, items, otherItems, borders, totalValue, observations]
         );
         return result.rows[0];
     } catch (err) {

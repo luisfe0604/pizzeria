@@ -21,7 +21,10 @@ const Sidebar = () => {
           <Link to="/orders">Pedidos</Link>
         </li>
         <li>
-          <Link to="/menuTable">Itens</Link>
+          <Link to="/menuTable">Pizzas</Link>
+        </li>
+        <li>
+          <Link to="/itemsTable">Itens</Link>
         </li>
         <li>
           <Link to="/reportTimestamp">Relatório</Link>
