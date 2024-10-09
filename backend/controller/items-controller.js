@@ -48,13 +48,13 @@ router.get('/:id',
 
 router.get('/:type',
     async (req, res) => {
-        const { error } = idSchema.validate({ id: req.params.id });
+        const { error } = idSchema.validate({ type: req.params.type });
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
-        const id = parseInt(req.params.id);
+        const type = parseInt(req.params.type);
         try {
-            const menuItem = await Menu.getMenuItemByType(id);
+            const menuItem = await Menu.getMenuItemByType(type);
             if (menuItem) {
                 res.status(200).json(menuItem); 
             } else {
