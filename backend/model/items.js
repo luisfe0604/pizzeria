@@ -40,7 +40,7 @@ async function getMenuItemByType(type) {
       const result = await pool.query(
         `SELECT * 
           FROM items 
-          WHERE id = $1`,
+          WHERE type = $1`,
         [type]
       );
       return result.rows;
