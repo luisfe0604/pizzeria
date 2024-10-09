@@ -23,11 +23,10 @@ const OrderForm = () => {
         const response = await axios.get('https://pizzeria-l6im.onrender.com/menu');
         setMenuItems(response.data);
 
-        const drinksResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/drinks');
+        const drinksResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/drink');
         setDrinks(drinksResponse.data);
 
-        const portionsResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/portions');
-        console.log(portionsResponse, 'aaaaaaaaaaaa')
+        const portionsResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/portion');
         setPortions(portionsResponse.data);
       } catch (error) {
         console.error('Erro ao buscar itens do menu:', error);
