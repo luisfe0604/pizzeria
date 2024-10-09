@@ -36,19 +36,19 @@ async function getMenuItemById(id) {
 }
 
 async function getMenuItemByType(type) {
-    try {
-      const result = await pool.query(
-        `SELECT * 
+  try {
+    const result = await pool.query(
+      `SELECT * 
           FROM items 
           WHERE type = $1`,
-        [type]
-      );
-      return result.rows;
-    } catch (err) {
-      console.error(`Erro ao buscar item com type ${type}:`, err);
-      throw err;
-    }
+      [type]
+    );
+    return result.rows;
+  } catch (err) {
+    console.error(`Erro ao buscar item com type ${type}:`, err);
+    throw err;
   }
+}
 
 async function addMenuItem(name, value, type) {
   try {
@@ -67,22 +67,19 @@ async function addMenuItem(name, value, type) {
 }
 
 async function getMenuItemByName(name) {
-    try {
-      const query = `
-            SELECT 
-                value AS price
-            FROM 
-                items 
-            WHERE 
-                name = $2;
-        `;
-      const result = await pool.query(query, [size.toLowerCase(), name]);
-      return result.rows[0];
-    } catch (err) {
-      console.error(`Erro ao buscar item do menu com nome ${name}:`, err);
-      throw err;
-    }
+  try {
+    const result = await pool.query(`
+            SELECT value as price
+            FROM items 
+            WHERE name = $1;`,
+    [name]
+    );
+    return result.rows[0];
+  } catch (err) {
+    console.error(`Erro ao buscar item do menu com nome ${name}:`, err);
+    throw err;
   }
+}
 
 async function updateMenuItem(id, name, value, type, active) {
   try {

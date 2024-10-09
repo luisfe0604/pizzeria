@@ -21,10 +21,10 @@ async function getTotalValue(ids) {
     return totalValue;
 }
 
-async function getTotalItemsValue(otherItems) {
-    const orders = await Promise.all(otherItems.map(async otherItem => {
-        const [name, count] = otherItem.split('x');
-        const itemName = name.trim();o
+async function getTotalItemsValue(other_items) {
+    const orders = await Promise.all(other_items.map(async other_items => {
+        const [name, count] = other_items.split('x');
+        const itemName = name.trim();
         const quantity = Number(count.trim());
 
         const menuItem = await Items.getMenuItemByName(itemName);

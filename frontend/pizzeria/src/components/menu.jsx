@@ -43,12 +43,24 @@ const OrderForm = () => {
     setPizzas(pizzas.filter((_, index) => index !== indexToRemove));
   };
 
-  const handleAddOtherItem = () => {
+  const handleAddOtherItemDrink = () => {
     setOtherItems([...otherItems, { item: '', quantity: '' }]);
+    setOtherItemsDrink([...otherItems, { item: '', quantity: '' }]);
   };
 
-  const handleRemoveOtherItem = (indexToRemove) => {
+  const handleRemoveOtherItemDrink = (indexToRemove) => {
     setOtherItems(otherItems.filter((_, index) => index !== indexToRemove));
+    setOtherItemsDrink(otherItems.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleAddOtherItemPortion = () => {
+    setOtherItems([...otherItems, { item: '', quantity: '' }]);
+    setOtherItemsPortion([...otherItems, { item: '', quantity: '' }]);
+  };
+
+  const handleRemoveOtherItemPortion = (indexToRemove) => {
+    setOtherItems(otherItems.filter((_, index) => index !== indexToRemove));
+    setOtherItemsPortion(otherItems.filter((_, index) => index !== indexToRemove));
   };
 
   const handleSubmit = async () => {
@@ -86,10 +98,10 @@ const OrderForm = () => {
             return `${flavor1}/${flavor2}-${size}`;
           }
         }),
-        otherItems: otherItems.map((other) => {
-          const { item, quantity } = other;
-          return `${item} x ${quantity}`;
-        }),
+        // otherItems: otherItems.map((other) => {
+        //   const { item, quantity } = other;
+        //   return `${item} x ${quantity}`;
+        // }),
         locale,
         client,
         borders: pizzas.map((pizza) => {
@@ -334,6 +346,7 @@ const OrderForm = () => {
                     const newDrinks = [...otherItemsDrink];
                     newDrinks[index].quantity = e.target.value;
                     setOtherItemsDrink(newDrinks);
+                    setOtherItems(newDrinks);
                   }}
                 >
                   <MenuItem value="1">1</MenuItem>
@@ -354,17 +367,17 @@ const OrderForm = () => {
               variant="contained"
               color="secondary"
               className='buttonRemove'
-              onClick={() => handleRemoveOtherItem(index)}
+              onClick={() => handleRemoveOtherItemDrink(index)}
             >
               -
             </Button>
-            <Button variant="contained" onClick={handleAddOtherItem} className='buttonAdd'>
-              Adicionar Bebida
-            </Button>
+
           </div>
         </div>
       ))}
-
+      <Button variant="contained" onClick={handleAddOtherItemDrink} className='buttonAdd'>
+        Adicionar Bebida
+      </Button>
       <h2>Porções</h2>
       {otherItemsPortion.map((portion, index) => (
         <div key={index} className="pizza-selection">
@@ -383,7 +396,7 @@ const OrderForm = () => {
                   }}
                 >
                   <MenuItem value="">Selecione a Porção</MenuItem>
-                  {drinks.map(item => (
+                  {portions.map(item => (
                     <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
                   ))}
                 </Select>
@@ -396,7 +409,7 @@ const OrderForm = () => {
                   onChange={(e) => {
                     const newPortion = [...otherItemsPortion];
                     newPortion[index].quantity = e.target.value;
-                    setPizzas(newPortion);
+                    setOtherItemsPortion(newPortion);
                     setOtherItems(newPortion);
                   }}
                 >
@@ -418,17 +431,16 @@ const OrderForm = () => {
               variant="contained"
               color="secondary"
               className='buttonRemove'
-              onClick={() => handleRemoveOtherItem(index)}
+              onClick={() => handleRemoveOtherItemPortion(index)}
             >
               -
-            </Button>
-            <Button variant="contained" onClick={handleAddOtherItem} className='buttonAdd'>
-              Adicionar Porção
             </Button>
           </div>
         </div>
       ))}
-
+      <Button variant="contained" onClick={handleAddOtherItemPortion} className='buttonAdd'>
+        Adicionar Porção
+      </Button>
       <Button variant="contained" onClick={handleSubmit}>
         Enviar Pedido
       </Button>

@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const createOrderSchema = Joi.object({
     items: Joi.array().items(Joi.string()).required(),
-    otherItems: Joi.array().items(Joi.string()).required(),
+    other_items: Joi.array().items(Joi.string()),
     borders: Joi.array().items(Joi.string()).required(),
     locale: Joi.string().required(),
     client: Joi.string().required(),

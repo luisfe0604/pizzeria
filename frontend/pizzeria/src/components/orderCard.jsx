@@ -20,7 +20,7 @@ const OrderCard = ({ order, onFinish }) => {
   };  
 
   const getOrderedOtherItemsNames = () => {
-    return order.otherItems.map((item, index) => `${item} x ${order.quantity ? order.quantity[index] : ''}`).join(', ');
+    return order.otherItems ? order.otherItems.map((item, index) => `${item} x ${order.quantity ? order.quantity[index] : ''}`).join(', ') : '';
   };  
 
   useEffect(() => {
