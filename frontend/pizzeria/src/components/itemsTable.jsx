@@ -49,7 +49,7 @@ const itemsTable = () => {
 
     const handleEditClick = (item) => {
         setEditingItemId(item.id);
-        setNewItem({ name: item.name, value: item.value, active: item.active });
+        setNewItem({ name: item.name, value: item.value, type: item.type, active: item.active });
     };
 
     const handleUpdateItem = async (e) => {

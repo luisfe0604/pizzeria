@@ -27,6 +27,7 @@ const OrderForm = () => {
         setDrinks(drinksResponse.data);
 
         const portionsResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/portions');
+        console.log(portionsResponse, 'aaaaaaaaaaaa')
         setPortions(portionsResponse.data);
       } catch (error) {
         console.error('Erro ao buscar itens do menu:', error);
