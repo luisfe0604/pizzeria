@@ -39,7 +39,7 @@ const itemsTable = () => {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             });
-            setNewItem({ name: '', value: '', active: true });
+            setNewItem({ name: '', value: '', type: '', active: true });
             fetchTemsItems();
         } catch (err) {
             console.error('Erro ao adicionar item:', err);
@@ -61,7 +61,7 @@ const itemsTable = () => {
                 },
             });
             setEditingItemId(null);
-            setNewItem({ name: '', value: '', active: true });
+            setNewItem({ name: '', value: '', type: '', active: true });
             fetchTemsItems();
         } catch (err) {
             console.error('Erro ao atualizar item:', err);
@@ -70,7 +70,7 @@ const itemsTable = () => {
     };
 
     const handleToggleActive = async (item) => {
-        const updatedItem = { name: item.name, value: item.value, active: !item.active };
+        const updatedItem = { name: item.name, value: item.value, type: item.type, active: !item.active };
         await axios.put(`https://pizzeria-l6im.onrender.com/items/${item.id}`, updatedItem, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -101,6 +101,14 @@ const itemsTable = () => {
                     onChange={(e) => setNewItem({ ...newItem, value: e.target.value })}
                     required
                 />
+                <TextField
+                    className="input-field"
+                    label="Tipo"
+                    variant="outlined"
+                    value={newItem.type}
+                    onChange={(e) => setNewItem({ ...newItem, type: e.target.value })}
+                    required
+                />
                 <Button className="submit-button" type="submit">
                     {editingItemId ? 'Atualizar Item' : 'Adicionar Item'}
                 </Button>
@@ -115,6 +123,7 @@ const itemsTable = () => {
                             <TableRow>
                                 <TableCell>Nome</TableCell>
                                 <TableCell>Valor</TableCell>
+                                <TableCell>Tipo</TableCell>
                                 <TableCell>Ativo</TableCell>
                                 <TableCell>Ações</TableCell>
                             </TableRow>
@@ -124,6 +133,7 @@ const itemsTable = () => {
                                 <TableRow key={item.id}>
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.value}</TableCell>
+                                    <TableCell>{item.type}</TableCell>
                                     <TableCell>
                                         <Button onClick={() => handleToggleActive(item)}>
                                             {item.active ? 'Desativar' : 'Ativar'}
