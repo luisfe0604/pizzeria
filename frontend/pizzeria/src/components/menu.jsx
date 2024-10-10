@@ -180,6 +180,7 @@ const OrderForm = () => {
             <div className='input-group-s'>
               <div className="input-group-s">
                 <FormControl fullWidth variant="outlined" className='inputFormS'>
+                  <InputLabel>Int/Meia</InputLabel>
                   <Select
                     value={pizza.type}
                     className='addItem'
@@ -196,6 +197,7 @@ const OrderForm = () => {
               </div>
               <div className="input-group-s">
                 <FormControl fullWidth variant="outlined" className='inputFormS'>
+                  <InputLabel>Tamanho</InputLabel>
                   <Select
                     value={pizza.size}
                     className='addItem'
@@ -214,6 +216,7 @@ const OrderForm = () => {
               </div>
               <div className="input-group-s">
                 <FormControl fullWidth variant="outlined" className='inputFormS'>
+                  <InputLabel>Borda</InputLabel>
                   <Select
                     value={pizza.borders}
                     className='addItem'
@@ -339,6 +342,7 @@ const OrderForm = () => {
               </FormControl>
 
               <FormControl fullWidth variant="outlined" className='inputFormS'>
+              <InputLabel>Quant.</InputLabel>
                 <Select
                   value={drink.quantity}
                   className='addItem'
@@ -401,6 +405,7 @@ const OrderForm = () => {
               </FormControl>
 
               <FormControl fullWidth variant="outlined" className='inputFormS'>
+                <InputLabel>Quant.</InputLabel>
                 <Select
                   value={otherItems.quantity}
                   className='addItem'

@@ -100,9 +100,8 @@ const MenuTable = () => {
                     onChange={(e) => setNewItem({ ...newItem, ingredients: e.target.value })}
                     required
                 />
-                <div className='inputForm'>
                     <TextField
-                        className="addItemText inputForm"
+                        className="input-field"
                         label="P"
                         variant="outlined"
                         type="number"
@@ -111,7 +110,7 @@ const MenuTable = () => {
                         required
                     />
                     <TextField
-                        className="addItemText inputForm"
+                        className="input-field"
                         label="M"
                         variant="outlined"
                         type="number"
@@ -120,7 +119,7 @@ const MenuTable = () => {
                         required
                     />
                     <TextField
-                        className="addItemText inputForm"
+                        className="input-field"
                         label="G"
                         variant="outlined"
                         type="number"
@@ -129,7 +128,7 @@ const MenuTable = () => {
                         required
                     />
                     <TextField
-                        className="addItemText inputForm"
+                        className="input-field"
                         label="B"
                         variant="outlined"
                         type="number"
@@ -137,7 +136,6 @@ const MenuTable = () => {
                         onChange={(e) => setNewItem({ ...newItem, B: e.target.value })}
                         required
                     />
-                </div>
                 <Button className="submit-button" type="submit">
                     {editingItemId ? 'Atualizar Item' : 'Adicionar Item'}
                 </Button>

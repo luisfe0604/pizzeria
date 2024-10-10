@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Select, MenuItem, Button } from '@mui/material';
 import '../App.css';
 
 const itemsTable = () => {
@@ -54,7 +54,6 @@ const itemsTable = () => {
 
     const handleUpdateItem = async (e) => {
         e.preventDefault();
-        console.log(newItem)
         try {
             await axios.put(`https://pizzeria-l6im.onrender.com/items/${editingItemId}`, newItem, {
                 headers: {
@@ -102,14 +101,14 @@ const itemsTable = () => {
                     onChange={(e) => setNewItem({ ...newItem, value: e.target.value })}
                     required
                 />
-                <TextField
-                    className="input-field"
-                    label="Tipo"
-                    variant="outlined"
+                <Select
                     value={newItem.type}
+                    className='pizza-selection'
                     onChange={(e) => setNewItem({ ...newItem, type: e.target.value })}
-                    required
-                />
+                  >
+                    <MenuItem value="portion">Porção</MenuItem>
+                    <MenuItem value="drink">Bebida</MenuItem>
+                  </Select>
                 <Button className="submit-button" type="submit">
                     {editingItemId ? 'Atualizar Item' : 'Adicionar Item'}
                 </Button>

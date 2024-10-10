@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <div class="name">${item.name}
-                        <span class="value">$${Number(item.value).toFixed(2)}</span> 
+                        <span class="value" style="padding-right: 3%">$${Number(item.value).toFixed(2)}</span> 
                     </div>
                 `;
                 ul.appendChild(li);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const li = document.createElement('li');
                 li.innerHTML = `
                     <div class="name">${item.name}
-                        <span class="value">$${Number(item.value).toFixed(2)}</span> 
+                        <span class="value" style="padding-right: 3%">$${Number(item.value).toFixed(2)}</span> 
                     </div>
                 `;
                 ul.appendChild(li);
