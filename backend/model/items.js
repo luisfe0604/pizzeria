@@ -88,8 +88,8 @@ async function updateMenuItem(id, name, value, type, active) {
         name = $1, 
         value = $2, 
         type = $3, 
-        active = $7
-       WHERE id = $8 
+        active = $4
+       WHERE id = $5 
        RETURNING *`,
       [name, value, type, active, id]
     );
