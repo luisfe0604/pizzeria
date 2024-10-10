@@ -5,7 +5,7 @@ import '../App.css';
 
 const itemsTable = () => {
     const [temsItems, setTemsItems] = useState([]);
-    const [newItem, setNewItem] = useState({ name: '', value: '', active: true });
+    const [newItem, setNewItem] = useState({ name: '', value: '', type: '', active: true });
     const [editingItemId, setEditingItemId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -54,6 +54,7 @@ const itemsTable = () => {
 
     const handleUpdateItem = async (e) => {
         e.preventDefault();
+        console.log(newItem)
         try {
             await axios.put(`https://pizzeria-l6im.onrender.com/items/${editingItemId}`, newItem, {
                 headers: {

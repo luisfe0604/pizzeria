@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Menu = require('../model/items')
 const authenticateToken = require('../helper/auth');
-const { createItemSchema, idSchema, alterItemSchema } = require('../validation/itemsValidation');
+const { createItemSchema, idSchema, alterItemSchema, idValidateSchema } = require('../validation/itemsValidation');
 
 router.get('/',
     async (req, res) => {
@@ -65,7 +65,7 @@ router.post('/', authenticateToken,
 
 router.put('/:id', authenticateToken,
     async (req, res) => {
-        const { error } = idSchema.validate({ id: req.params.id });
+        const { error } = idValidateSchema.validate({ id: req.params.id });
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }

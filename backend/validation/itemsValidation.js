@@ -18,8 +18,13 @@ const idSchema = Joi.object({
     type: Joi.string().required(),
 });
 
+const idValidateSchema = Joi.object({
+    id: Joi.number().integer().min(1).required()
+});
+
 module.exports = {
     createItemSchema,
     idSchema,
-    alterItemSchema
+    alterItemSchema,
+    idValidateSchema
 };

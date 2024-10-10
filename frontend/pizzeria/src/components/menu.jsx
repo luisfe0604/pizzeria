@@ -32,6 +32,7 @@ const OrderForm = () => {
         console.error('Erro ao buscar itens do menu:', error);
       }
     };
+    setOtherItems(otherItemsDrink.concat(otherItemsPortion))
     fetchMenuItems();
   }, []);
 
@@ -98,10 +99,10 @@ const OrderForm = () => {
             return `${flavor1}/${flavor2}-${size}`;
           }
         }),
-        // otherItems: otherItems.map((other) => {
-        //   const { item, quantity } = other;
-        //   return `${item} x ${quantity}`;
-        // }),
+        other_items: otherItems.map((other) => {
+          const { item, quantity } = other;
+          return `${item} x ${quantity}`;
+        }),
         locale,
         client,
         borders: pizzas.map((pizza) => {
@@ -328,7 +329,6 @@ const OrderForm = () => {
                     const newDrinks = [...otherItemsDrink];
                     newDrinks[index].item = e.target.value;
                     setOtherItemsDrink(newDrinks);
-                    setOtherItems(newDrinks);
                   }}
                 >
                   <MenuItem value="">Selecione a Bebida</MenuItem>
@@ -346,7 +346,6 @@ const OrderForm = () => {
                     const newDrinks = [...otherItemsDrink];
                     newDrinks[index].quantity = e.target.value;
                     setOtherItemsDrink(newDrinks);
-                    setOtherItems(newDrinks);
                   }}
                 >
                   <MenuItem value="1">1</MenuItem>
@@ -392,7 +391,6 @@ const OrderForm = () => {
                     const newPortion = [...otherItemsPortion];
                     newPortion[index].item = e.target.value;
                     setOtherItemsPortion(newPortion);
-                    setOtherItems(newPortion);
                   }}
                 >
                   <MenuItem value="">Selecione a Porção</MenuItem>
@@ -410,7 +408,6 @@ const OrderForm = () => {
                     const newPortion = [...otherItemsPortion];
                     newPortion[index].quantity = e.target.value;
                     setOtherItemsPortion(newPortion);
-                    setOtherItems(newPortion);
                   }}
                 >
                   <MenuItem value="1">1</MenuItem>
