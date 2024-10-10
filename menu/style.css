@@ -61,8 +61,9 @@ ul li .ingredients {
 ul li .value {
     float: right;
     font-size: 0.8rem;
-    color: lightgray;
+    color: rgb(255, 255, 255);
     padding-right: 10px;
+    display: flex;
 }
 
 .size{
@@ -85,6 +86,30 @@ ul li .value {
     z-index: 10; 
 }
 
+#traditional-pizza {
+    margin-top: 40px;
+}
+
+#gourmet-pizza {
+    margin-top: 40px;
+}
+
+#sweet-pizza {
+    margin-top: 40px;
+}
+
+/* Personalização do título das categorias */
+#traditional-pizza h3,
+#gourmet-pizza h3,
+#sweet-pizza h3,
+#portion h3,
+#drink h3 {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+
 @media (max-width: 768px) { 
     .menu {
         width: 80%;
@@ -102,8 +127,8 @@ ul li .value {
 
     ul li .value {
         float: right;
-        font-size: 0.6rem;
-        color: lightgray;
+        font-size: 0.7rem;
+        color: rgb(255, 255, 255);
         padding-top: 4px;
         padding-right: 4px;
     }

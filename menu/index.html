@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,26 +8,54 @@
     <title>DONNA DUDA Menu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="menu">
         <img src="./images/logo.jpeg" alt="Logo da Pizzaria" class="logo">
         <h1>DONNA DUDA</h1>
         <h2>MENU</h2>
-        <div class="category" id="pizza">
-            <h3>PIZZAS  <div class="size"><div class="size-item">P</div><div class="size-item">M</div><div class="size-item">G</div><div class="size-item">B</div></div></h3>
-            <ul id="pizza-items">
+
+        <!-- PIZZAS TRADICIONAIS -->
+        <div class="category" id="traditional-pizza">
+            <h3>PIZZAS<div class="size"><div class="size-item">P</div><div class="size-item">M</div><div class="size-item">G</div><div class="size-item">B</div></div></h3>
+            <ul id="traditional-pizza-items">
             </ul>
         </div>
-        <div class="category" id="pizza">
-            <h3>PORÇÕES  <div class="size"><div class="size-item">R$</div></div></h3>
+
+        <!-- PIZZAS GOURMET -->
+        <div class="category" id="gourmet-pizza">
+            <h3>PIZZAS GOURMET</h3>
+            <ul id="gourmet-pizza-items">
+            </ul>
+        </div>
+
+        <!-- PIZZAS DOCE -->
+        <div class="category" id="sweet-pizza">
+            <h3>PIZZAS DOCE</h3>
+            <ul id="sweet-pizza-items">
+            </ul>
+        </div>
+
+        <!-- PORÇÕES -->
+        <div class="category" id="portion">
+            <h3>PORÇÕES <div class="size">
+                    <div class="size-item">R$</div>
+                </div>
+            </h3>
             <ul id="portion-items">
             </ul>
         </div>
-        <div class="category" id="pizza">
-            <h3>BEBIDAS  <div class="size"><div class="size-item">R$</div></div></h3>
+
+        <!-- BEBIDAS -->
+        <div class="category" id="drink">
+            <h3>BEBIDAS <div class="size">
+                    <div class="size-item">R$</div>
+                </div>
+            </h3>
             <ul id="drink-items">
             </ul>
         </div>
@@ -34,4 +63,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
