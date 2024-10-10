@@ -45,23 +45,19 @@ const OrderForm = () => {
   };
 
   const handleAddOtherItemDrink = () => {
-    setOtherItems([...otherItems, { item: '', quantity: '' }]);
-    setOtherItemsDrink([...otherItems, { item: '', quantity: '' }]);
+    setOtherItemsDrink([...otherItemsDrink, { item: '', quantity: '' }]);
   };
 
   const handleRemoveOtherItemDrink = (indexToRemove) => {
-    setOtherItems(otherItems.filter((_, index) => index !== indexToRemove));
-    setOtherItemsDrink(otherItems.filter((_, index) => index !== indexToRemove));
+    setOtherItemsDrink(otherItemsDrink.filter((_, index) => index !== indexToRemove));
   };
 
   const handleAddOtherItemPortion = () => {
-    setOtherItems([...otherItems, { item: '', quantity: '' }]);
-    setOtherItemsPortion([...otherItems, { item: '', quantity: '' }]);
+    setOtherItemsPortion([...otherItemsPortion, { item: '', quantity: '' }]);
   };
 
   const handleRemoveOtherItemPortion = (indexToRemove) => {
-    setOtherItems(otherItems.filter((_, index) => index !== indexToRemove));
-    setOtherItemsPortion(otherItems.filter((_, index) => index !== indexToRemove));
+    setOtherItemsPortion(otherItemsPortion.filter((_, index) => index !== indexToRemove));
   };
 
   const handleSubmit = async () => {
