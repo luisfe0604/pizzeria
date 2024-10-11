@@ -98,6 +98,26 @@ ul li .value {
     margin-top: 40px;
 }
 
+.order-button-container {
+    text-align: center; /* Centraliza o botão */
+    padding: 20px !important; /* Espaço acima e abaixo do botão */
+}
+
+.order-button {
+    background-color: #0c1579; /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+    padding: 15px 30px; /* Espaçamento interno */
+    text-decoration: none; /* Remove o sublinhado */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 1.2em; /* Tamanho da fonte */
+    transition: background-color 0.3s; /* Transição suave */
+}
+
+.order-button:hover {
+    background-color: #0d00ff; /* Cor de fundo ao passar o mouse */
+}
+
+
 /* Personalização do título das categorias */
 #traditional-pizza h3,
 #gourmet-pizza h3,
