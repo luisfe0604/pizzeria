@@ -53,8 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Erro ao carregar os itens:', error));
 
-    // Requisições para porções e bebidas permanecem as mesmas
-    fetch('https://pizzeria-l6im.onrender.com/items/portion')
+        fetch('https://pizzeria-l6im.onrender.com/items/allCanYouEat')
+        .then(response => response.json())
+        .then(data => {
+            const ul = document.getElementById('allCanYouEat-pizza-items');
+            data.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="pizza-item">
+                        <div class="name">${item.name}</div>
+                        <div class="prices">
+                            <span class="value" style="padding-right: 3%">$${Number(item.value).toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+                ul.appendChild(li);
+            });
+        })
+
+        fetch('https://pizzeria-l6im.onrender.com/items/portion')
         .then(response => response.json())
         .then(data => {
             const ul = document.getElementById('portion-items');

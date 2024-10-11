@@ -7,6 +7,7 @@ const OrderForm = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [portions, setPortions] = useState([]);
+  const [allYouCanEat, setAllYouCanEat] = useState([]);
   const [locale, setLocale] = useState('');
   const [client, setClient] = useState('');
   const [observations, setObservations] = useState('');
@@ -14,6 +15,7 @@ const OrderForm = () => {
   const [pizzas, setPizzas] = useState([{ type: 'whole', flavor1: '', flavor2: '', size: '', borders: '' }]);
   const [otherItemsDrink, setOtherItemsDrink] = useState([{ item: '', quantity: '' }]);
   const [otherItemsPortion, setOtherItemsPortion] = useState([{ item: '', quantity: '' }]);
+  const [otherItemsAllYouCanEat, setOtherItemsAllYouCanEat] = useState([{ item: '', quantity: '' }]);
   const [otherItems, setOtherItems] = useState([{ item: '', quantity: '' }]);
 
 
@@ -28,13 +30,30 @@ const OrderForm = () => {
 
         const portionsResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/portion');
         setPortions(portionsResponse.data);
+
+        const allYouCanEatResponse = await axios.get('https://pizzeria-l6im.onrender.com/items/allCanYouEat');
+        setAllYouCanEat(allYouCanEatResponse.data);
       } catch (error) {
         console.error('Erro ao buscar itens do menu:', error);
       }
     };
-    setOtherItems(otherItemsDrink.concat(otherItemsPortion))
+
     fetchMenuItems();
   }, []);
+
+  const validatePizza = (pizza) => {
+    if (pizza.type === 'whole') {
+      return pizza.flavor1 && pizza.size && pizza.borders;
+    }
+    if (pizza.type === 'half') {
+      return pizza.flavor1 && pizza.flavor2 && pizza.size && pizza.borders;
+    }
+    return false;
+  };
+
+  const validateOtherItem = (item) => {
+    return item.item && item.quantity > 0;
+  };
 
   const handleAddPizza = () => {
     setPizzas([...pizzas, { type: 'whole', flavor1: '', flavor2: '', size: '', borders: '' }]);
@@ -60,64 +79,45 @@ const OrderForm = () => {
     setOtherItemsPortion(otherItemsPortion.filter((_, index) => index !== indexToRemove));
   };
 
+  const handleAddAllYouCanEat = () => {
+    setOtherItemsAllYouCanEat([...otherItemsAllYouCanEat, { item: '', quantity: '' }]);
+  };
+
+  const handleRemoveAllYouCanEat = (indexToRemove) => {
+    setOtherItemsAllYouCanEat(otherItemsAllYouCanEat.filter((_, index) => index !== indexToRemove));
+  };
+
   const handleSubmit = async () => {
-    for (const pizza of pizzas) {
-      const { type, flavor1, flavor2, size } = pizza;
+    const isPizzaValid = pizzas.every(validatePizza);
+    const isDrinkValid = otherItemsDrink.every(validateOtherItem);
+    const isPortionValid = otherItemsPortion.every(validateOtherItem);
+    const isAllYouCanEatValid = otherItemsAllYouCanEat.every(validateOtherItem);
 
-      if (type === 'half') {
-        if (!flavor1 || !flavor2) {
-          setMessage({ text: 'Por favor, selecione os dois sabores para pizzas meio a meio.', type: 'error' });
-          clearMessage();
-          return;
-        }
-      }
-
-      if (type === 'whole' && !flavor1) {
-        setMessage({ text: 'Por favor, selecione o sabor da pizza inteira.', type: 'error' });
-        clearMessage();
-        return;
-      }
-
-      if (!size) {
-        setMessage({ text: 'Por favor, selecione o tamanho da pizza.', type: 'error' });
-        clearMessage();
-        return;
-      }
+    if (!isPizzaValid && !isDrinkValid && !isPortionValid && !isAllYouCanEatValid) {
+      setMessage({ text: 'Por favor, preencha corretamente os itens de pizza ou outro item.', type: 'error' });
+      clearMessage();
+      return;
     }
 
     try {
       const orderData = {
-        items: pizzas.map((pizza) => {
-          const { type, flavor1, flavor2, size } = pizza;
-          if (type === 'whole') {
-            return `${flavor1}-${size}`;
-          } else {
-            return `${flavor1}/${flavor2}-${size}`;
-          }
+        items: pizzas.filter(validatePizza).map(pizza => {
+          return pizza.type === 'whole' ? `${pizza.flavor1}-${pizza.size}` : `${pizza.flavor1}/${pizza.flavor2}-${pizza.size}`;
         }),
-        other_items: otherItems.map((other) => {
-          const { item, quantity } = other;
-          return `${item} x ${quantity}`;
-        }),
+        other_items: [
+          ...otherItemsDrink.filter(validateOtherItem).map(item => `${item.item} x ${item.quantity}`),
+          ...otherItemsPortion.filter(validateOtherItem).map(item => `${item.item} x ${item.quantity}`),
+          ...otherItemsAllYouCanEat.filter(validateOtherItem).map(item => `${item.item} x ${item.quantity}`),
+        ],
         locale,
         client,
-        borders: pizzas.map((pizza) => {
-          const { borders } = pizza;
-          if (borders) {
-            return `${borders}`;
-          } else {
-            return `S/B`;
-          }
-
-        }),
+        borders: pizzas.filter(pizza => pizza.borders).map(pizza => pizza.borders || ''),
         observations,
       };
 
-      await axios.post('https://pizzeria-l6im.onrender.com/order', {
-        ...orderData,
-      });
+      await axios.post('https://pizzeria-l6im.onrender.com/order', { ...orderData });
       setMessage({ text: 'Pedido realizado com sucesso!', type: 'success' });
-      clearMessage();
+      clearMessageSucces();
     } catch (error) {
       console.error('Erro ao realizar o pedido:', error);
       setMessage({ text: 'Erro ao realizar o pedido.', type: 'error' });
@@ -125,6 +125,11 @@ const OrderForm = () => {
     }
   };
 
+  const clearMessageSucces = () => {
+    setTimeout(() => {
+      location.reload()
+    }, 3000);
+  };
 
   const clearMessage = () => {
     setTimeout(() => {
@@ -314,6 +319,71 @@ const OrderForm = () => {
         Adicionar Pizza
       </Button>
 
+
+      <h2>Rodízio</h2>
+      {otherItemsAllYouCanEat.map((rodizio, index) => (
+        <div key={index} className="pizza-selection">
+          <div className="pizza-form">
+            <div className="input-group-s">
+              <FormControl fullWidth variant="outlined" className='inputForm'>
+                <InputLabel>Rodízio</InputLabel>
+                <Select
+                  value={rodizio.item}
+                  className='inputFormS'
+                  onChange={(e) => {
+                    const newRodizio = [...otherItemsAllYouCanEat];
+                    newRodizio[index].item = e.target.value;
+                    setOtherItemsAllYouCanEat(newRodizio);
+                  }}
+                >
+                  <MenuItem value="">Selecione o Rodízio</MenuItem>
+                  {allYouCanEat.map(item => (
+                    <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl fullWidth variant="outlined" className='inputFormS'>
+                <InputLabel>Quant.</InputLabel>
+                <Select
+                  value={rodizio.quantity}
+                  className='addItem'
+                  onChange={(e) => {
+                    const newRodizio = [...otherItemsAllYouCanEat];
+                    newRodizio[index].quantity = e.target.value;
+                    setOtherItemsAllYouCanEat(newRodizio);
+                  }}
+                >
+                  <MenuItem value="1">1</MenuItem>
+                  <MenuItem value="2">2</MenuItem>
+                  <MenuItem value="3">3</MenuItem>
+                  <MenuItem value="4">4</MenuItem>
+                  <MenuItem value="5">5</MenuItem>
+                  <MenuItem value="6">6</MenuItem>
+                  <MenuItem value="7">7</MenuItem>
+                  <MenuItem value="8">8</MenuItem>
+                  <MenuItem value="9">9</MenuItem>
+                  <MenuItem value="10">10</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              className='buttonRemove'
+              onClick={() => handleRemoveAllYouCanEat(index)}
+            >
+              -
+            </Button>
+
+          </div>
+        </div>
+      ))}
+      <Button variant="contained" onClick={handleAddAllYouCanEat} className='buttonAdd'>
+        Adicionar Rodízio
+      </Button>
+
       <h2>Bebidas</h2>
       {otherItemsDrink.map((drink, index) => (
         <div key={index} className="pizza-selection">
@@ -338,7 +408,7 @@ const OrderForm = () => {
               </FormControl>
 
               <FormControl fullWidth variant="outlined" className='inputFormS'>
-              <InputLabel>Quant.</InputLabel>
+                <InputLabel>Quant.</InputLabel>
                 <Select
                   value={drink.quantity}
                   className='addItem'

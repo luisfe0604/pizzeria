@@ -108,6 +108,7 @@ const itemsTable = () => {
                   >
                     <MenuItem value="portion">Porção</MenuItem>
                     <MenuItem value="drink">Bebida</MenuItem>
+                    <MenuItem value="allCanYouEat">Rodízio</MenuItem>
                   </Select>
                 <Button className="submit-button" type="submit">
                     {editingItemId ? 'Atualizar Item' : 'Adicionar Item'}

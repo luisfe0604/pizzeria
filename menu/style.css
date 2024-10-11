@@ -103,7 +103,8 @@ ul li .value {
 #gourmet-pizza h3,
 #sweet-pizza h3,
 #portion h3,
-#drink h3 {
+#drink h3,
+#allCanYouEat-pizza h3 {
     background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
     border-radius: 10px;

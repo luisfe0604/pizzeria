@@ -50,7 +50,7 @@ const OrderCard = ({ order, onFinish }) => {
       <strong>Valor:</strong>
       <input
         type="number"
-        value={value}
+        value={Number(value).toFixed(2)}
         onChange={(e) => setValue(e.target.value)} 
         placeholder="Valor do pedido"
         disabled={!order.status}
