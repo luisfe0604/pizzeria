@@ -112,7 +112,7 @@ const OrderForm = () => {
         locale,
         client,
         borders: pizzas.filter(pizza => pizza.borders).map(pizza => pizza.borders || ''),
-        observations,
+        observations: observations || ' ',
       };
 
       await axios.post('https://pizzeria-l6im.onrender.com/order', { ...orderData });
