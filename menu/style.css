@@ -52,7 +52,7 @@ ul li .name {
     font-size: 1rem;
 }
 
-ul li .ingredients {
+.ingredients {
     font-style: italic;
     font-size: 0.7rem;
     color: lightgray;
@@ -115,6 +115,10 @@ ul li .value {
 
 .order-button:hover {
     background-color: #0d00ff; /* Cor de fundo ao passar o mouse */
+}
+
+.allCanYouEat-items{
+    font-size: 12px;
 }
 
 
