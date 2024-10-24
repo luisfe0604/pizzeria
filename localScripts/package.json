@@ -1,7 +1,20 @@
 {
+  "name": "localscript",
+  "version": "1.0.0",
+  "main": "printer.js",
+  "bin": "printer.js",
   "dependencies": {
+    "docx": "^9.0.2",
     "escpos": "^3.0.0-alpha.6",
     "escpos-usb": "^3.0.0-alpha.4",
+    "force": "^0.0.3",
+    "iconv-lite": "^0.6.3",
+    "node-printer": "^1.0.4",
+    "node-thermal-printer": "^4.4.3",
+    "pdf-to-printer": "^5.6.0",
+    "printer": "^0.4.0",
+    "qz-tray": "^2.2.4",
+    "usb": "^2.14.0",
     "ws": "^8.18.0"
   }
 }

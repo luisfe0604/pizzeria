@@ -50,6 +50,11 @@ const MenuTable = () => {
     const handleEditClick = (item) => {
         setEditingItemId(item.id);
         setNewItem({ name: item.name, ingredients: item.ingredients, P: item.p, M: item.m, G: item.g, B: item.b, active: item.active });
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     };
 
     const handleUpdateItem = async (e) => {

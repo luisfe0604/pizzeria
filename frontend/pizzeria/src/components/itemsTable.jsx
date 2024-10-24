@@ -50,6 +50,11 @@ const itemsTable = () => {
     const handleEditClick = (item) => {
         setEditingItemId(item.id);
         setNewItem({ name: item.name, value: item.value, type: item.type, active: item.active });
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     };
 
     const handleUpdateItem = async (e) => {

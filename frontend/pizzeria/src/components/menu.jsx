@@ -43,13 +43,13 @@ const OrderForm = () => {
 
   const validatePizza = (pizza) => {
     if (pizza.type === 'whole') {
-      return pizza.flavor1 && pizza.size && pizza.borders;
+        return pizza.flavor1 && pizza.size && (pizza.borders !== undefined);
     }
     if (pizza.type === 'half') {
-      return pizza.flavor1 && pizza.flavor2 && pizza.size && pizza.borders;
+        return pizza.flavor1 && pizza.flavor2 && pizza.size && (pizza.borders !== undefined);
     }
     return false;
-  };
+};
 
   const validateOtherItem = (item) => {
     return item.item && item.quantity > 0;
