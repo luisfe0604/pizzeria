@@ -45,6 +45,7 @@ const OrderCard = ({ order, onFinish }) => {
       <strong>Cliente:</strong> {order.client} <br />
       <strong>Pizzas Pedidas:</strong> {getOrderedItemsNames()} <br />
       <strong>Itens Pedidos:</strong> {getOrderedOtherItemsNames()} <br />
+      <strong>Local:</strong> {order.locale} <br />
       <strong>Obs:</strong> {order.observations} <br />
       <strong>Data:</strong> {new Date(order.start_timestamp).toLocaleString()} <br />
       <strong>Valor:</strong>
