@@ -23,10 +23,9 @@ async function getTotalValue(ids) {
 
 async function getTotalItemsValue(other_items) {
     const orders = await Promise.all(other_items.map(async other_items => {
-        const [name, count] = other_items.split('x');
+        const [name, count] = other_items.split('x ');
         const itemName = name.trim();
-        const quantity = Number(count.trim());
-
+        const quantity = Number(count);
         const menuItem = await Items.getMenuItemByName(itemName);
 
         return menuItem ? menuItem.price * quantity : 0;
